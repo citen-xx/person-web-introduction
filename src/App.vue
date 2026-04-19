@@ -24,13 +24,6 @@
             >
               项目
             </router-link>
-            <router-link 
-              to="/blog" 
-              class="text-gray-300 hover:text-blue-400 font-medium transition-colors"
-              active-class="text-blue-400"
-            >
-              博客
-            </router-link>
           </div>
         </nav>
       </div>

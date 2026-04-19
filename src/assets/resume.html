@@ -1,0 +1,86 @@
+<div class="max-w-4xl mx-auto p-8 bg-white text-gray-900">
+  <div class="flex justify-between items-center mb-8">
+    <div>
+      <h1 class="text-3xl font-bold">刘益华</h1>
+      <p class="text-gray-600">求职意向：Java 后端实习生</p>
+    </div>
+    <div>
+      <p class="flex items-center gap-2">
+        <span>📍</span>
+        <span>现居：河南洛阳</span>
+      </p>
+      <p class="flex items-center gap-2">
+        <span>📞</span>
+        <span>电话：18848958817</span>
+      </p>
+      <p class="flex items-center gap-2">
+        <span>📧</span>
+        <span>邮箱：18848958817@163.com</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="mb-8">
+    <h2 class="text-xl font-bold bg-blue-100 p-2 rounded">核心优势</h2>
+    <ul class="list-disc pl-6 mt-2 space-y-1">
+      <li>极强的算法基本功与学习能力：GPA 4.8 稳居专业前列，具备扎实的数据结构与底层代码落地能力。</li>
+      <li>出色的工程落地与性能优化意识：不局限于简单的 CRUD，在复杂业务中实战运用 Redis 解决分布式限流与缓存击穿痛点，对高可用、高并发场景设计有深入实践与思考。</li>
+      <li>敏锐的 AI 前沿技术嗅觉：已获得华为 HCCDP-AI 开发者高级认证，掌握一定的 RAG 架构与 Agent 工具链开发，可熟练使用 Trae、GitHub copilot 等 AI 辅助编程工具。</li>
+    </ul>
+  </div>
+
+  <div class="mb-8">
+    <h2 class="text-xl font-bold bg-blue-100 p-2 rounded">教育背景</h2>
+    <div class="mt-2">
+      <p class="font-semibold">河南科技大学 | 软件工程专业 | 本科</p>
+      <p class="text-gray-600">2024.09-2028.06</p>
+      <ul class="list-disc pl-6 mt-1 space-y-1">
+        <li>专业成绩：GPA 4.8（获校三好学生、连续三学期二等奖学金）</li>
+        <li>主修课程：数据结构、Java 企业级开发、MySQL 数据库原理、软件工程、前端响应式开发。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mb-8">
+    <h2 class="text-xl font-bold bg-blue-100 p-2 rounded">相关技能</h2>
+    <ul class="list-disc pl-6 mt-2 space-y-1">
+      <li>核心开发：深入理解 Java 基础（集合、并发），熟练运用 Spring Boot、Spring Security、MyBatis-Plus、AOP 切面编程。</li>
+      <li>缓存与中间件：熟练掌握 Redis 核心数据结构，能处理缓存击穿、穿透等高并发痛点（实战运用 Redisson 分布式锁与 Lua 脚本）；了解 RabbitMQ 消息队列的异步解耦应用。</li>
+      <li>数据库与工程化：熟练使用 MySQL（索引优化、事务管理）；熟练使用 Git 版本控制、Docker 容器化部署及 Linux(CentOS) 环境运维。</li>
+      <li>人工智能：掌握 RAG（检索增强生成）架构、Dify 智能体开发、Prompt 调优，具备 AI 接口流式网关封装经验。</li>
+    </ul>
+  </div>
+
+  <div class="mb-8">
+    <h2 class="text-xl font-bold bg-blue-100 p-2 rounded">项目经历</h2>
+    <div class="mt-4">
+      <h3 class="font-semibold">校园智能知识库助手（核心开发） | 2026.02 - 2026.02</h3>
+      <p class="text-gray-600">技术栈：Spring Boot, Dify, Redis, WebFlux (WebClient), Vue3, RuYi(二次开发)</p>
+      <ul class="list-disc pl-6 mt-2 space-y-1">
+        <li>核心定位：针对校园教务咨询痛点，基于 RAG 架构构建的高可用智能 AI 问答助手，实现从知识检索到业务办理的闭环。</li>
+        <li>流式响应优化：摒弃传统同步调用，基于 Spring WebFlux 的 WebClient 封装 Dify API，实现 SSE 流式打字机效果，本地压测：WebFlux 优化后 P99 延迟从 1500ms 降至 600ms（JMeter 100 并发）。</li>
+        <li>高并发安全：针对大型 Token 计费场景，利用 Redis + Lua 脚本设计分布式动态滑动窗口限流器，有效抵御恶意刷单，保障底层安全流量对垒。</li>
+        <li>多级缓存防击穿：引入 Redis + MySQL 多级缓存架构（标准知识库表），结合 Redisson 分布式锁（DCL 双重检查）解决热点问题缓存击穿痛点，使核心问答接口 QPS 提升数倍（压测环境：100 并发，2000 QPS），并实现高耗频问题缓存命中 95%，降低 Token 消耗。</li>
+        <li>智能体演进：实践 Function Calling 机制，将校园教务 API 整合为 Dify 工具，实现了从“纯知识检索”向“业务逻辑办理”的跨越。</li>
+      </ul>
+    </div>
+    <div class="mt-4">
+      <h3 class="font-semibold">高可用餐饮交易与实时履约中台 | 2025.10 - 2026.01</h3>
+      <p class="text-gray-600">技术栈：Spring Boot, Redis, MyBatis-Plus, Spring Cache, WebSocket, JWT, Apache POI</p>
+      <ul class="list-disc pl-6 mt-2 space-y-1">
+        <li>高并发交易引擎：针对午高峰高频下单，基于 Redisson 分布式锁，结合 MySQL 乐观锁（版本号机制）解决极端并发下的超卖与数据脏读问题；针对商家端后台复杂的订单聚合查询，利用 EXPLAIN 分析执行计划重构覆盖索引，解决了深分页导致的慢查询瓶颈。</li>
+        <li>异步履约与延迟取消：核心下单链路引入自定义线程池实现订单异步落库，提升接口吞吐量；基于 RabbitMQ 消息队列（或 Redis 延迟机制）实现 15 分钟未支付订单的优雅自动取消，消除轮询扫表的数据据库压力。</li>
+        <li>LBS 路由与全双工通知：结合地里 GEO 空间计算模块，实现外卖订单到就近食堂窗口的动态派单与距离测算；基于 WebSocket 构建全双工通知，确保订单状态实时同步，零误差。</li>
+        <li>代码重构：运用 策略模式 + 简单工厂模式 重构冗长的满减、打折等复杂价格计算逻辑，严格遵循开闭原则（OCP），提升系统可维护性。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mb-8">
+    <h2 class="text-xl font-bold bg-blue-100 p-2 rounded">在校经历以及竞赛奖项</h2>
+    <ul class="list-disc pl-6 mt-2 space-y-1">
+      <li>算法竞赛：校 ICPC 程序设计大赛一等奖、挑战杯二等奖、互联网+一等奖。</li>
+      <li>青年志愿者协会 项目管理部—负责人（2024.11-2025.06）：负责志愿活动全生命周期管理与流程优化，独立制定执行方案；成功与 3 家外部机构建立长期战略合作关系，为项目提供稳定物资支持，具备出色的跨部门沟通协调能力</li>
+    </ul>
+  </div>
+</div>
