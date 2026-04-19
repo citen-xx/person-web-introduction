@@ -57,7 +57,7 @@
               <li>使用 Spring WebFlux 的 WebClient 进行异步非阻塞 API 调用，避免线程阻塞</li>
               <li>在表现层采用 SSE（Server-Sent Events）协议，建立服务器到客户端的单向长连接</li>
               <li>将大模型的流式输出实时推送到前端，实现“打字机”效果</li>
-              <li>首字响应控制在 500ms 内，大幅提升用户体验</li>
+              <li>首字响应控制在 500ms 内，大幅提升用户体验。</li>
             </ul>
 
             <h3>2. Redis Lua 分布式滑动窗口限流</h3>
