@@ -45,7 +45,7 @@
 
             <h2>架构设计与技术栈</h2>
             <ul>
-              <li>核心框架: Spring Boot 2.7, Vue3, TailwindCSS</li>
+              <li>核心框架: Spring Boot 3, Vue3, TailwindCSS</li>
               <li>AI 模型接入: Dify (大语言模型编排引擎), Spring WebFlux</li>
               <li>缓存与高并发中间件: Redis, Redisson 分布式锁</li>
             </ul>
