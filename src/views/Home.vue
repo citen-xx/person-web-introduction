@@ -21,11 +21,9 @@
               <a href="/projects" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-600/20">
                 查看项目
               </a>
-              <a href="/public/personresume.pdf" target="_blank" class="bg-gray-800 hover:bg-gray-700 text-white font-medium py-3 px-6 rounded-lg border border-gray-700 transition-all duration-300 hover:shadow-lg flex items-center gap-2 group">
-                <span class="text-lg">📄</span>
-                获取简历
-                <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
-              </a>
+              <router-link to="/projects" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-600/20">
+                查看项目
+              </router-link>
             </div>
             <div class="flex items-center gap-4">
               <div class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors">
