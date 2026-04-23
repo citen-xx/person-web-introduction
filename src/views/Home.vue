@@ -58,107 +58,166 @@
     </section>
 
     <!-- 技能栈区域 -->
-    <section class="py-20 px-4 bg-gray-800/50">
-      <div class="container mx-auto max-w-6xl">
+    <section class="py-20 px-4 bg-gray-900 relative overflow-hidden">
+      <!-- 背景粒子效果 -->
+      <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-20 left-10 w-1 h-1 bg-blue-400 rounded-full animate-pulse"></div>
+        <div class="absolute top-40 right-20 w-1 h-1 bg-purple-400 rounded-full animate-pulse" style="animation-delay: 0.5s"></div>
+        <div class="absolute bottom-20 left-1/4 w-1 h-1 bg-green-400 rounded-full animate-pulse" style="animation-delay: 1s"></div>
+        <div class="absolute bottom-40 right-1/3 w-1 h-1 bg-yellow-400 rounded-full animate-pulse" style="animation-delay: 1.5s"></div>
+        <div class="absolute top-1/2 left-1/2 w-1 h-1 bg-blue-400 rounded-full animate-pulse" style="animation-delay: 2s"></div>
+      </div>
+      
+      <div class="container mx-auto max-w-6xl relative z-10">
         <div class="text-center mb-16">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
             技能栈
           </h2>
           <p class="text-gray-400 max-w-2xl mx-auto">
             专注于后端架构、AI 研发和全栈开发，具备丰富的项目经验
           </p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <!-- 后端架构 -->
-          <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-blue-500 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
-            <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-4">
-              <span class="text-blue-400 text-xl">⚙️</span>
-            </div>
-            <h3 class="text-xl font-semibold mb-3">
-              后端架构
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2 py-1 rounded">
-                Spring Boot
-              </span>
-              <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2 py-1 rounded">
-                Redis
-              </span>
-              <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2 py-1 rounded">
-                MyBatis-Plus
-              </span>
-              <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2 py-1 rounded">
-                并发编程
-              </span>
+          <div class="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 hover:border-blue-500 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 group relative overflow-hidden">
+            <!-- 背景光效 -->
+            <div class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            <div class="flex items-start gap-6">
+              <div class="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <span class="text-blue-400 text-2xl">⚙️</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-2xl font-semibold mb-2 group-hover:text-blue-400 transition-colors duration-300">
+                  后端架构
+                </h3>
+                <p class="text-gray-400 mb-4 text-sm">
+                  高并发 & 分布式架构，缓存与锁机制
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <div class="bg-gray-700/80 hover:bg-blue-900/50 text-gray-300 hover:text-blue-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-blue-500/20">
+                    Spring Boot
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-blue-900/50 text-gray-300 hover:text-blue-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-blue-500/20">
+                    Redis
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-blue-900/50 text-gray-300 hover:text-blue-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-blue-500/20">
+                    MyBatis-Plus
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-blue-900/50 text-gray-300 hover:text-blue-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-blue-500/20">
+                    并发编程
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-blue-900/50 text-gray-300 hover:text-blue-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-blue-500/20">
+                    Redisson
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           <!-- 数据库 -->
-          <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-green-500 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/10">
-            <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mb-4">
-              <span class="text-green-400 text-xl">🗃️</span>
-            </div>
-            <h3 class="text-xl font-semibold mb-3">
-              数据库
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2 py-1 rounded">
-                MySQL
-              </span>
-              <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2 py-1 rounded">
-                索引调优
-              </span>
-              <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2 py-1 rounded">
-                MVCC
-              </span>
+          <div class="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 hover:border-green-500 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20 group relative overflow-hidden">
+            <!-- 背景光效 -->
+            <div class="absolute inset-0 bg-gradient-to-br from-green-500/5 to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            <div class="flex items-start gap-6">
+              <div class="w-16 h-16 bg-green-500/20 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <span class="text-green-400 text-2xl">🗃️</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-2xl font-semibold mb-2 group-hover:text-green-400 transition-colors duration-300">
+                  数据库
+                </h3>
+                <p class="text-gray-400 mb-4 text-sm">
+                  深度 MySQL，索引调优与锁机制
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <div class="bg-gray-700/80 hover:bg-green-900/50 text-gray-300 hover:text-green-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-green-500/20">
+                    MySQL
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-green-900/50 text-gray-300 hover:text-green-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-green-500/20">
+                    索引调优
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-green-900/50 text-gray-300 hover:text-green-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-green-500/20">
+                    MVCC
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-green-900/50 text-gray-300 hover:text-green-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-green-500/20">
+                    锁机制
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           <!-- AI 研发 -->
-          <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-purple-500 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10">
-            <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-4">
-              <span class="text-purple-400 text-xl">🤖</span>
-            </div>
-            <h3 class="text-xl font-semibold mb-3">
-              AI 研发
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2 py-1 rounded">
-                Dify
-              </span>
-              <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2 py-1 rounded">
-                RAG
-              </span>
-              <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2 py-1 rounded">
-                LangChain
-              </span>
-              <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2 py-1 rounded">
-                提示词工程
-              </span>
+          <div class="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 hover:border-purple-500 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20 group relative overflow-hidden">
+            <!-- 背景光效 -->
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            <div class="flex items-start gap-6">
+              <div class="w-16 h-16 bg-purple-500/20 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <span class="text-purple-400 text-2xl">🤖</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-2xl font-semibold mb-2 group-hover:text-purple-400 transition-colors duration-300">
+                  AI 研发
+                </h3>
+                <p class="text-gray-400 mb-4 text-sm">
+                  RAG 应用落地实践，提示词工程与 Agent 开发
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <div class="bg-gray-700/80 hover:bg-purple-900/50 text-gray-300 hover:text-purple-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-purple-500/20">
+                    Dify
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-purple-900/50 text-gray-300 hover:text-purple-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-purple-500/20">
+                    RAG
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-purple-900/50 text-gray-300 hover:text-purple-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-purple-500/20">
+                    LangChain
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-purple-900/50 text-gray-300 hover:text-purple-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-purple-500/20">
+                    提示词工程
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-purple-900/50 text-gray-300 hover:text-purple-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-purple-500/20">
+                    Agent 开发
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
           <!-- 前端与 DevOps -->
-          <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-yellow-500 transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/10">
-            <div class="w-12 h-12 bg-yellow-500/20 rounded-xl flex items-center justify-center mb-4">
-              <span class="text-yellow-400 text-xl">🚀</span>
-            </div>
-            <h3 class="text-xl font-semibold mb-3">
-              前端与 DevOps
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2 py-1 rounded">
-                Vue3
-              </span>
-              <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2 py-1 rounded">
-                Trae
-              </span>
-              <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2 py-1 rounded">
-                Docker
-              </span>
-              <span class="bg-gray-700 text-gray-300 text-xs font-medium px-2 py-1 rounded">
-                Git
-              </span>
+          <div class="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 hover:border-yellow-500 transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/20 group relative overflow-hidden">
+            <!-- 背景光效 -->
+            <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            <div class="flex items-start gap-6">
+              <div class="w-16 h-16 bg-yellow-500/20 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <span class="text-yellow-400 text-2xl">🚀</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-2xl font-semibold mb-2 group-hover:text-yellow-400 transition-colors duration-300">
+                  前端与 DevOps
+                </h3>
+                <p class="text-gray-400 mb-4 text-sm">
+                  现代化 UI，容器化部署与版本控制
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <div class="bg-gray-700/80 hover:bg-yellow-900/50 text-gray-300 hover:text-yellow-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-yellow-500/20">
+                    Vue3
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-yellow-900/50 text-gray-300 hover:text-yellow-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-yellow-500/20">
+                    Trae
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-yellow-900/50 text-gray-300 hover:text-yellow-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-yellow-500/20">
+                    Docker
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-yellow-900/50 text-gray-300 hover:text-yellow-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-yellow-500/20">
+                    Git
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
