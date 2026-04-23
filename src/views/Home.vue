@@ -43,7 +43,7 @@
           <div class="lg:w-1/2">
             <div class="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 hover:border-gray-600 transition-colors">
               <p class="text-gray-300 leading-relaxed">
-                目前专业排名前 10% (GPA: 4.8 / 5.0)，持有华为 HCCDP-AI 工作级认证。专注于分布式架构与 RAG 落地实践。
+                目前专业排名前 10% (GPA: 4.8 / 5.0)，持有华为 HCCDP-AI 工作级认证。专注于分布式架构与 RAG 落地实践
               </p>
               <div class="mt-6 flex items-center gap-2">
                 <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
