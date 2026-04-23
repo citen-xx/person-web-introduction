@@ -57,45 +57,45 @@
             </div>
           </div>
 
-          <!-- 项目二：高并发餐饮交易与履约中台 -->
+          <!-- 项目二：高并发餐饮交易与履约微服务中台 -->
           <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-700 hover:border-green-500/50 group">
             <div class="h-40 bg-gradient-to-r from-green-600 to-teal-700 flex items-center justify-center relative overflow-hidden">
               <div class="text-white text-3xl font-bold z-10">
-                餐饮交易中台
+                微服务中台
               </div>
               <div class="absolute inset-0 bg-gradient-to-br from-green-600/30 to-teal-700/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute top-0 right-0 w-20 h-20 bg-white/10 backdrop-blur-sm rounded-bl-full"></div>
             </div>
             <div class="p-8">
               <h2 class="text-2xl font-semibold mb-4 group-hover:text-green-400 transition-colors duration-300">
-                高并发餐饮交易与履约中台
+                高并发餐饮交易与履约微服务中台
               </h2>
               <div class="text-gray-400 mb-6 space-y-4">
                 <p class="leading-relaxed">
-                  针对高校午间就餐高峰期出现的高并发抢单、系统卡顿、套餐超卖等痛点，将传统的单体点餐系统重构为具备高可用、高并发承载能力的交易与履约中台。
+                  将单体架构解耦重构为独立微服务。基于 Nacos 与 Gateway 实现动态路由与鉴权；深度集成 Sentinel 实施接口限流与熔断降级；引入 Seata 保障跨库事务最终一致性。
                 </p>
                 <div>
                   <h4 class="font-semibold text-gray-300 mb-2">核心技术难点：</h4>
                   <ul class="list-disc pl-5 space-y-2">
-                    <li>Redisson + 乐观锁的防超卖护城河，彻底杜绝极端并发下的库存超卖</li>
-                    <li>RabbitMQ 死信队列处理超时订单，实现时间到达后的精准消费与库存回滚</li>
-                    <li>AOP 切面与 Redis 打造极致的接口幂等性，防止网络抖动导致的重复订单</li>
-                    <li>策略模式与简单工厂的重构艺术，严格落实开闭原则（OCP）</li>
+                    <li>Nacos + Gateway 实现动态路由与会话无状态鉴权</li>
+                    <li>Sentinel 滑动窗口限流与熔断降级，防止服务雪崩</li>
+                    <li>Seata AT 模式保障跨库事务最终一致性</li>
+                    <li>RabbitMQ 死信队列实现超时订单优雅履约</li>
                   </ul>
                 </div>
               </div>
               <div class="flex flex-wrap gap-2 mb-6">
-                <span class="bg-yellow-900/50 text-yellow-400 text-xs font-medium px-3 py-1 rounded-full">
-                  MySQL调优
-                </span>
-                <span class="bg-purple-900/50 text-purple-400 text-xs font-medium px-3 py-1 rounded-full">
-                  分布式锁
-                </span>
-                <span class="bg-blue-900/50 text-blue-400 text-xs font-medium px-3 py-1 rounded-full">
-                  策略模式
+                <span class="bg-cyan-900/50 text-cyan-400 text-xs font-medium px-3 py-1 rounded-full">
+                  Spring Cloud Alibaba
                 </span>
                 <span class="bg-orange-900/50 text-orange-400 text-xs font-medium px-3 py-1 rounded-full">
-                  RabbitMQ
+                  Sentinel
+                </span>
+                <span class="bg-purple-900/50 text-purple-400 text-xs font-medium px-3 py-1 rounded-full">
+                  Seata
+                </span>
+                <span class="bg-blue-900/50 text-blue-400 text-xs font-medium px-3 py-1 rounded-full">
+                  微服务
                 </span>
               </div>
               <router-link 

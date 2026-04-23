@@ -89,58 +89,53 @@
 
           <div v-else-if="projectId === 'order-system'">
             <h2>项目背景</h2>
-            <p>针对高校午间就餐高峰期出现的高并发抢单、系统卡顿、套餐超卖等痛点，将传统的单体点餐系统重构为具备高可用、高并发承载能力的交易与履约中台。系统支持 thousands QPS 的并发请求，保障了师生在就餐高峰期的顺畅点餐体验。</p>
+            <p>针对高校午间就餐高峰期出现的高并发抢单、系统卡顿等痛点，将传统的单体点餐系统解耦重构为具备高可用、高并发承载能力的微服务交易与履约中台。</p>
 
             <h2>核心亮点</h2>
             <ul>
-              <li><strong>Redisson 乐观锁防超卖</strong>：彻底杜绝极端并发下的库存超卖惨剧</li>
-              <li><strong>RabbitMQ 死信延迟队列</strong>：优雅处理超时订单，提升系统吞吐量</li>
-              <li><strong>策略模式重构</strong>：消除 if-else 屎山代码，提升系统可扩展性</li>
-              <li><strong>AOP 切面幂等性保障</strong>：防止网络抖动导致的重复订单</li>
+              <li><strong>Nacos + Gateway 动态路由</strong>：实现服务动态注册与配置发现，会话拦截与 JWT Token 解析前置</li>
+              <li><strong>Sentinel 限流熔断</strong>：基于 QPS 的滑动窗口限流，配置熔断降级策略防止服务雪崩</li>
+              <li><strong>Seata 分布式事务</strong>：AT 模式保障跨库事务最终一致性</li>
+              <li><strong>RabbitMQ 延迟队列</strong>：实现超时订单优雅履约与库存回滚</li>
             </ul>
 
             <h2>架构设计与技术栈</h2>
             <ul>
-              <li>核心框架: Spring Boot, MyBatis-Plus</li>
-              <li>并发与缓存: Redis, Redisson, Spring Cache, 线程池</li>
-              <li>消息与通信: RabbitMQ (延迟队列), WebSocket, JWT</li>
+              <li>微服务生态: Spring Cloud Alibaba (Nacos, Gateway, Sentinel, Seata), OpenFeign</li>
+              <li>核心框架与中间件: Spring Boot, Redis, RabbitMQ, MyBatis-Plus</li>
             </ul>
 
             <h2>技术实现细节</h2>
-            <h3>1. Redisson 乐观锁防超卖实现</h3>
-            <p>在秒杀或特价套餐抢购场景下，传统的 JVM 锁（如 synchronized）在分布式环境下形同虚设：</p>
+            <h3>1. 微服务解耦与无状态鉴权 (Gateway + Nacos)</h3>
+            <p>彻底摒弃单体架构耦合，拆分为订单、商品、用户等独立微服务：</p>
             <ul>
-              <li>采用 Redisson 分布式锁作为第一道防线拦截横向并发</li>
-              <li>在 MySQL 扣减库存时兜底引入乐观锁（版本号 version 机制）</li>
-              <li>彻底杜绝了 ABA 问题与极端并发下的库存超卖（负库存）惨剧</li>
-              <li>保障了交易数据的一致性和准确性</li>
+              <li>利用 Nacos 实现服务动态注册与配置发现</li>
+              <li>引入 Spring Cloud Gateway 作为统一流量网关</li>
+              <li>将会话拦截与 JWT Token 解析前置，实现下游微服务的无状态化与安全隔离</li>
             </ul>
 
-            <h3>2. RabbitMQ 死信延迟队列技术</h3>
-            <p>针对“下单后 15 分钟未支付需释放库存”的业务需求：</p>
+            <h3>2. 服务雪崩防御与高可用保护 (Sentinel)</h3>
+            <p>面对脉冲式高并发抢单，深度集成 Sentinel：</p>
             <ul>
-              <li>弃用传统的“定时任务轮询扫表”（极大消耗数据库 I/O 且存在延迟误差）</li>
-              <li>引入 RabbitMQ 死信队列（DLX）与 TTL 机制</li>
-              <li>将订单作为延迟消息投递，实现时间到达后的精准消费与库存回滚</li>
-              <li>系统吞吐量显著提升，数据库压力大幅降低</li>
+              <li>对核心交易接口配置基于 QPS 的滑动窗口限流</li>
+              <li>对非核心下游服务（如积分、短信通知）配置熔断降级策略</li>
+              <li>彻底阻断单点故障引发的全局微服务级联雪崩</li>
             </ul>
 
-            <h3>3. 策略模式消除 if-else 屎山代码</h3>
-            <p>原系统的订单价格计算模块充斥着大量 if-else 嵌套（如满减、VIP 折扣、新客立减）：</p>
+            <h3>3. 跨库分布式事务一致性 (Seata)</h3>
+            <p>针对微服务拆分后"创建订单"与"扣减库存"的跨库事务难题：</p>
             <ul>
-              <li>利用策略模式 (Strategy) 封装独立的计费算法卡片</li>
-              <li>结合简单工厂模式 (Factory) 动态分发策略</li>
-              <li>严格落实“开闭原则（OCP）”，新增任何营销活动均无需修改核心业务代码</li>
-              <li>代码可读性和可维护性大幅提升，减少了线上 Bug 的发生</li>
+              <li>引入 Seata (AT 模式) 构建全局事务</li>
+              <li>通过底层拦截 SQL 生成 undo_log</li>
+              <li>在保证系统高并发吞吐量的同时，依靠补偿机制实现了交易链路数据的最终一致性</li>
             </ul>
 
-            <h3>4. AOP 切面保障交易接口幂等性</h3>
-            <p>为防止校园网卡顿导致的重复点击提交订单（重复扣款）：</p>
+            <h3>4. 异步 RPC 履约与延迟取消 (RabbitMQ + OpenFeign)</h3>
+            <p>核心下单链路通过 OpenFeign 实现服务间 RPC 调用：</p>
             <ul>
-              <li>基于自定义注解 + Spring AOP 切面编程设计了全局防重拦截器</li>
-              <li>通过前端派发唯一 Token 结合 Redis setnx 特性</li>
-              <li>在业务逻辑执行前完成校验，确保核心交易接口在遭遇网络重发时具备绝对的幂等性</li>
-              <li>保障了交易的安全性和可靠性</li>
+              <li>基于 RabbitMQ 死信队列实现 15 分钟未支付订单的优雅自动取消</li>
+              <li>实现时间到达后的精准消费与库存回滚</li>
+              <li>消除传统定时任务轮询扫表的数据库 I/O 压力</li>
             </ul>
           </div>
 
@@ -164,7 +159,7 @@ const projectTitle = computed(() => {
   if (projectId.value === 'ai-assistant') {
     return '校园智能知识库助手'
   } else if (projectId.value === 'order-system') {
-    return '高并发餐饮交易与履约中台'
+    return '高并发餐饮交易与履约微服务中台'
   }
   return '项目详情'
 })
@@ -173,7 +168,7 @@ const projectTags = computed(() => {
   if (projectId.value === 'ai-assistant') {
     return ['Spring Boot', 'Dify', 'Redis', 'WebFlux', 'RAG', 'SSE']
   } else if (projectId.value === 'order-system') {
-    return ['Spring Boot', 'MySQL调优', '分布式锁', '策略模式', 'RabbitMQ', 'WebSocket']
+    return ['Spring Cloud Alibaba', 'Sentinel', 'Seata', 'Nacos', 'Gateway', '微服务']
   }
   return []
 })

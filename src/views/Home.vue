@@ -78,7 +78,7 @@
           </p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- 后端架构 -->
           <div class="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 hover:border-blue-500 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 group relative overflow-hidden">
             <!-- 背景光效 -->
@@ -150,6 +150,43 @@
             </div>
           </div>
 
+          <!-- 微服务与高可用架构 -->
+          <div class="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 hover:border-cyan-500 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/20 group relative overflow-hidden">
+            <!-- 背景光效 -->
+            <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            
+            <div class="flex items-start gap-6">
+              <div class="w-16 h-16 bg-cyan-500/20 rounded-2xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                <span class="text-cyan-400 text-2xl">🌐</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-2xl font-semibold mb-2 group-hover:text-cyan-400 transition-colors duration-300">
+                  微服务与高可用架构
+                </h3>
+                <p class="text-gray-400 mb-4 text-sm">
+                  Nacos, Gateway, Sentinel, Seata
+                </p>
+                <div class="flex flex-wrap gap-2">
+                  <div class="bg-gray-700/80 hover:bg-cyan-900/50 text-gray-300 hover:text-cyan-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-cyan-500/20">
+                    Nacos
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-cyan-900/50 text-gray-300 hover:text-cyan-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-cyan-500/20">
+                    Gateway
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-cyan-900/50 text-gray-300 hover:text-cyan-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-cyan-500/20">
+                    Sentinel
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-cyan-900/50 text-gray-300 hover:text-cyan-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-cyan-500/20">
+                    Seata
+                  </div>
+                  <div class="bg-gray-700/80 hover:bg-cyan-900/50 text-gray-300 hover:text-cyan-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-cyan-500/20">
+                    OpenFeign
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- AI 研发 -->
           <div class="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 hover:border-purple-500 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20 group relative overflow-hidden">
             <!-- 背景光效 -->
@@ -188,7 +225,7 @@
           </div>
 
           <!-- 前端与 DevOps -->
-          <div class="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 hover:border-yellow-500 transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/20 group relative overflow-hidden">
+          <div class="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 hover:border-yellow-500 transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/20 group relative overflow-hidden lg:col-span-2">
             <!-- 背景光效 -->
             <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             
