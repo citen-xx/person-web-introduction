@@ -22,7 +22,7 @@
               <router-link to="/projects" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-600/20">
                 查看项目
               </router-link>
-              <a href="/1.pdf" target="_blank" class="bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-green-600/20">
+              <a href="/personresume.pdf" target="_blank" class="bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-green-600/20">
                 查看简历
               </a>
             </div>
