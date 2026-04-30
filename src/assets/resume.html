@@ -65,13 +65,13 @@
       </ul>
     </div>
     <div class="mt-4">
-      <h3 class="font-semibold">高可用餐饮交易与实时履约中台 | 2025.10 - 2026.01</h3>
-      <p class="text-gray-600">技术栈：Spring Boot, Redis, MyBatis-Plus, Spring Cache, WebSocket, JWT, Apache POI</p>
+      <h3 class="font-semibold">校园智算中心预约与资源调度系统 | 2025.10 - 2026.01</h3>
+      <p class="text-gray-600">技术栈：Spring Cloud Alibaba（Nacos / Gateway / Sentinel）、Spring Boot、Redis、RabbitMQ、Redisson、Lua、MyBatis-Plus、MySQL、OpenFeign、WebSocket</p>
       <ul class="list-disc pl-6 mt-2 space-y-1">
-        <li>高并发交易引擎：针对午高峰高频下单，基于 Redisson 分布式锁，结合 MySQL 乐观锁（版本号机制）解决极端并发下的超卖与数据脏读问题；针对商家端后台复杂的订单聚合查询，利用 EXPLAIN 分析执行计划重构覆盖索引，解决了深分页导致的慢查询瓶颈。</li>
-        <li>异步履约与延迟取消：核心下单链路引入自定义线程池实现订单异步落库，提升接口吞吐量；基于 RabbitMQ 消息队列（或 Redis 延迟机制）实现 15 分钟未支付订单的优雅自动取消，消除轮询扫表的数据据库压力。</li>
-        <li>LBS 路由与全双工通知：结合地里 GEO 空间计算模块，实现外卖订单到就近食堂窗口的动态派单与距离测算；基于 WebSocket 构建全双工通知，确保订单状态实时同步，零误差。</li>
-        <li>代码重构：运用 策略模式 + 简单工厂模式 重构冗长的满减、打折等复杂价格计算逻辑，严格遵循开闭原则（OCP），提升系统可维护性。</li>
+        <li>底层调度执行引擎：作为校园智能问答助手的底层业务中台，承接大模型 Function Calling 下发的 GPU 节点、实训室工位等稀缺资源预约指令，解决高并发场景下的超额分配、状态一致性与超时释放问题。</li>
+        <li>微服务治理：负责将系统重构为 Spring Cloud Alibaba 多模块微服务架构，拆分网关、用户凭证、资源调度等核心服务，并基于 Gateway 前置 Token 解析、身份透传与统一流量入口治理。</li>
+        <li>强一致抢占链路：设计 Redis + Lua + Redis Stream + Redisson 的高并发抢占方案，在缓存层原子完成资格校验、额度扣减与重复预约防护，并在异步落库阶段通过分布式锁与 MySQL 条件更新保障最终一致性。</li>
+        <li>柔性事务与性能优化：基于 RabbitMQ 延迟消息与死信队列实现预约超时自动回收与额度恢复；针对百万级历史调度日志采用 EXPLAIN、覆盖索引与延迟关联完成深分页优化，将查询耗时由 3.2s 降至 150ms 以内。</li>
       </ul>
     </div>
   </div>

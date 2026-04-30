@@ -102,53 +102,62 @@
 
           <div v-else-if="projectId === 'order-system'">
             <h2>项目背景</h2>
-            <p>围绕高峰期抢单、库存一致性与履约稳定性问题，将传统单体餐饮系统重构为微服务交易中台，完成服务拆分、统一网关治理、分布式事务控制与异步履约链路建设，提升系统在高并发场景下的可用性与扩展性。</p>
+            <p>面向校园智算中心 GPU 节点、实训室工位、深度学习工作站与高价值实验资源时段，构建高可用资源调度中台。该项目作为上层校园智能问答助手的底层业务执行引擎，承接大模型 Function Calling 下发的预约、抢占、释放与状态查询指令，解决稀缺资源在高并发场景下的超额分配、状态一致性与超时回收问题。</p>
 
             <h2>核心亮点</h2>
             <ul>
-              <li><strong>Nacos + Gateway 服务治理</strong>：实现服务注册发现、动态路由与 JWT 无状态鉴权前置</li>
-              <li><strong>Sentinel 高可用保护体系</strong>：基于滑动窗口限流与熔断降级降低服务雪崩风险</li>
-              <li><strong>Seata 分布式事务一致性</strong>：保障订单创建与库存扣减等跨库操作最终一致</li>
-              <li><strong>RabbitMQ 异步履约链路</strong>：实现超时订单自动取消与库存回滚，优化交易闭环</li>
+              <li><strong>Nacos + Gateway 微服务治理</strong>：完成网关、用户凭证、资源调度等服务拆分，统一接入层与无状态鉴权链路</li>
+              <li><strong>Redis + Lua + Stream 强一致抢占</strong>：围绕稀缺资源额度控制构建原子扣减、异步削峰与重复预约防护机制</li>
+              <li><strong>Redisson + MySQL 双层兜底</strong>：在异步落库阶段按用户维度串行化处理，保障预约状态最终一致</li>
+              <li><strong>RabbitMQ 柔性事务闭环</strong>：通过延迟消息与死信队列实现超时违约自动回收与额度恢复</li>
             </ul>
 
             <h2>架构设计与技术栈</h2>
             <ul>
-              <li>微服务生态: Spring Cloud Alibaba (Nacos, Gateway, Sentinel, Seata), OpenFeign</li>
-              <li>核心框架与中间件: Spring Boot, Redis, RabbitMQ, MyBatis-Plus</li>
+              <li>微服务生态: Spring Cloud Alibaba（Nacos, Gateway, Sentinel 扩展位）, OpenFeign</li>
+              <li>核心框架与中间件: Spring Boot, Redis, RabbitMQ, Redisson, Lua, MyBatis-Plus, MySQL</li>
+              <li>业务支撑能力: Redis Stream 异步消息流, WebSocket 实时通知, Function Calling 业务承接</li>
             </ul>
 
             <h2>技术实现细节</h2>
             <h3>1. 微服务解耦与无状态鉴权 (Gateway + Nacos)</h3>
-            <p>彻底摒弃单体架构耦合，拆分为订单、商品、用户等独立微服务：</p>
+            <p>项目从单体架构收敛为 Maven 多模块微服务体系，核心拆分为公共模块、网关服务、用户服务与资源调度服务：</p>
             <ul>
-              <li>利用 Nacos 实现服务动态注册与配置发现</li>
-              <li>引入 Spring Cloud Gateway 作为统一流量网关</li>
-              <li>将会话拦截与 JWT Token 解析前置，实现下游微服务的无状态化与安全隔离</li>
+              <li>利用 Nacos 实现服务注册发现、动态配置与环境隔离</li>
+              <li>引入 Spring Cloud Gateway 作为统一流量入口，承接上层 AI 助手的结构化调度请求</li>
+              <li>在网关层前置 Token 解析、白名单放行与身份透传，推动下游调度服务走向无状态化</li>
             </ul>
 
-            <h3>2. 服务雪崩防御与高可用保护 (Sentinel)</h3>
-            <p>面对脉冲式高并发抢单，深度集成 Sentinel：</p>
+            <h3>2. 稀缺资源强一致抢占 (Redis + Lua + Stream)</h3>
+            <p>针对 GPU 节点、实训室工位等资源在开放时段的脉冲式流量，核心目标是不超卖、不重复预约、主链路不被击穿：</p>
             <ul>
-              <li>对核心交易接口配置基于 QPS 的滑动窗口限流</li>
-              <li>对非核心下游服务（如积分、短信通知）配置熔断降级策略</li>
-              <li>彻底阻断单点故障引发的全局微服务级联雪崩</li>
+              <li>通过 Redis + Lua 在缓存层原子完成资格校验、额度扣减与重复预约判断</li>
+              <li>借助 Redis Stream 将高并发请求异步削峰，降低主线程与数据库瞬时压力</li>
+              <li>在缓存层先建立并发防线，再将结果交给后续异步链路持久化处理</li>
             </ul>
 
-            <h3>3. 跨库分布式事务一致性 (Seata)</h3>
-            <p>针对微服务拆分后"创建订单"与"扣减库存"的跨库事务难题：</p>
+            <h3>3. Redisson 串行化落库与最终一致性兜底</h3>
+            <p>在异步消费与状态落库阶段，项目进一步通过分布式锁与数据库条件更新补强一致性保障：</p>
             <ul>
-              <li>引入 Seata (AT 模式) 构建全局事务</li>
-              <li>通过底层拦截 SQL 生成 undo_log</li>
-              <li>在保证系统高并发吞吐量的同时，依靠补偿机制实现了交易链路数据的最终一致性</li>
+              <li>按用户维度使用 Redisson 分布式锁，避免异步消费阶段重复落库</li>
+              <li>结合 MySQL 条件更新与状态校验，作为缓存层之外的最终一致性兜底</li>
+              <li>形成“缓存原子扣减 - 异步削峰 - 串行落库 - 持久层校验”的多层并发防线</li>
             </ul>
 
-            <h3>4. 异步 RPC 履约与延迟取消 (RabbitMQ + OpenFeign)</h3>
-            <p>核心下单链路通过 OpenFeign 实现服务间 RPC 调用：</p>
+            <h3>4. 柔性事务闭环与超时自动回收 (RabbitMQ)</h3>
+            <p>针对预约成功后长期未签到、算力任务未激活等场景，项目通过消息机制避免资源空占：</p>
             <ul>
-              <li>基于 RabbitMQ 死信队列实现 15 分钟未支付订单的优雅自动取消</li>
-              <li>实现时间到达后的精准消费与库存回滚</li>
-              <li>消除传统定时任务轮询扫表的数据库 I/O 压力</li>
+              <li>预约成功后发送延迟消息，到期未确认则进入死信队列</li>
+              <li>消费死信消息后自动标记违约状态并恢复 ResourceQuota 可用额度</li>
+              <li>相比定时任务轮询扫表，显著降低数据库 I/O 压力并提升时效性</li>
+            </ul>
+
+            <h3>5. 百万级历史记录深分页优化</h3>
+            <p>针对管理端百万级历史调度日志的分页查询，项目围绕慢 SQL 场景做了针对性性能优化：</p>
+            <ul>
+              <li>使用 EXPLAIN 分析执行计划，识别回表与深分页扫描带来的性能损耗</li>
+              <li>结合覆盖索引与延迟关联优化查询路径</li>
+              <li>将深分页查询耗时从 3.2s 优化到 150ms 以内，提升后台管理体验</li>
             </ul>
           </div>
 
@@ -229,11 +238,11 @@ type ProjectAction = {
 const route = useRoute()
 const projectId = computed(() => route.params.id as string)
 
-const projectTitle = computed(() => {
+  const projectTitle = computed(() => {
   if (projectId.value === 'ai-assistant') {
     return '校园智能知识库助手'
   } else if (projectId.value === 'order-system') {
-    return '高并发餐饮交易与履约微服务中台'
+    return '校园智算中心预约与资源调度系统'
   } else if (projectId.value === 'ai-oj-sandbox') {
     return 'AI-OJ 智能算法沙箱 (AI-Driven Development)'
   }
@@ -244,7 +253,7 @@ const projectTags = computed(() => {
   if (projectId.value === 'ai-assistant') {
     return ['Spring Boot', 'Dify', 'Redis', 'WebFlux', 'RAG', 'SSE']
   } else if (projectId.value === 'order-system') {
-    return ['Spring Cloud Alibaba', 'Sentinel', 'Seata', 'Nacos', 'Gateway', 'RabbitMQ']
+    return ['Spring Cloud Alibaba', 'Redis', 'RabbitMQ', 'Redisson', 'Lua', 'Gateway']
   } else if (projectId.value === 'ai-oj-sandbox') {
     return ['Spring Boot 3', 'Vue3', 'Docker', 'Qwen API', 'SSE', 'ProcessBuilder']
   }
@@ -267,7 +276,7 @@ const projectActions = computed<ProjectAction[]>(() => {
     return [
       {
         label: 'GitHub',
-        href: 'https://github.com/citen-xx/citen-compus-order',
+        href: 'https://github.com/citen-xx/citen-compus-dispatch',
         icon: '→',
         variant: 'secondary'
       }

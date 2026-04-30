@@ -74,30 +74,30 @@
             </div>
           </div>
 
-          <!-- 项目二：高并发餐饮交易与履约微服务中台 -->
+          <!-- 项目二：校园智算中心预约与资源调度系统 -->
           <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-700 hover:border-green-500/50 group">
             <div class="h-40 bg-gradient-to-r from-green-600 to-teal-700 flex items-center justify-center relative overflow-hidden">
               <div class="text-white text-3xl font-bold z-10">
-                微服务中台
+                智算中心预约
               </div>
               <div class="absolute inset-0 bg-gradient-to-br from-green-600/30 to-teal-700/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute top-0 right-0 w-20 h-20 bg-white/10 backdrop-blur-sm rounded-bl-full"></div>
             </div>
             <div class="p-8">
               <h2 class="text-2xl font-semibold mb-4 group-hover:text-green-400 transition-colors duration-300">
-                高并发餐饮交易与履约微服务中台
+                校园智算中心预约与资源调度系统
               </h2>
               <div class="text-gray-400 mb-6 space-y-4">
                 <p class="leading-relaxed">
-                  围绕高峰期抢单、库存一致性与履约稳定性问题，将传统单体餐饮系统重构为微服务交易中台，完成服务拆分、统一网关治理、分布式事务控制与异步履约链路建设。
+                  面向校园智算中心 GPU 节点、实训室工位与高价值实验资源时段，构建高可用资源调度中台，作为上层校园智能问答助手的底层业务执行引擎，承接 Function Calling 下发的预约、抢占、释放与状态查询指令。
                 </p>
                 <div>
                   <h4 class="font-semibold text-gray-300 mb-2">核心工程亮点：</h4>
                   <ul class="list-disc pl-5 space-y-2">
-                    <li>基于 Nacos + Gateway 落地服务注册发现、动态路由与 JWT 无状态鉴权</li>
-                    <li>深度集成 Sentinel 构建限流、熔断与降级体系，降低高峰流量下的雪崩风险</li>
-                    <li>通过 Seata AT 模式保障订单创建与库存扣减等跨库事务的最终一致性</li>
-                    <li>结合 RabbitMQ 死信队列实现超时订单自动取消与库存回滚，优化履约时效</li>
+                    <li>基于 Nacos + Gateway 完成多模块微服务拆分与统一流量入口治理，实现下游服务无状态化演进</li>
+                    <li>通过 Redis + Lua + Redis Stream + Redisson 设计高并发抢占链路，保障稀缺资源不超额分配</li>
+                    <li>结合 RabbitMQ 延迟消息与死信队列实现超时违约自动回收，形成柔性事务闭环</li>
+                    <li>针对百万级历史调度日志采用 EXPLAIN、覆盖索引与延迟关联，深分页查询耗时由 3.2s 优化至 150ms 以内</li>
                   </ul>
                 </div>
               </div>
@@ -105,20 +105,20 @@
                 <span class="bg-cyan-900/50 text-cyan-400 text-xs font-medium px-3 py-1 rounded-full">
                   Spring Cloud Alibaba
                 </span>
-                <span class="bg-orange-900/50 text-orange-400 text-xs font-medium px-3 py-1 rounded-full">
-                  Sentinel
-                </span>
-                <span class="bg-purple-900/50 text-purple-400 text-xs font-medium px-3 py-1 rounded-full">
-                  Seata
-                </span>
-                <span class="bg-blue-900/50 text-blue-400 text-xs font-medium px-3 py-1 rounded-full">
-                  微服务
-                </span>
-                <span class="bg-emerald-900/50 text-emerald-400 text-xs font-medium px-3 py-1 rounded-full">
-                  Gateway
+                <span class="bg-red-900/50 text-red-400 text-xs font-medium px-3 py-1 rounded-full">
+                  Redis
                 </span>
                 <span class="bg-rose-900/50 text-rose-400 text-xs font-medium px-3 py-1 rounded-full">
                   RabbitMQ
+                </span>
+                <span class="bg-blue-900/50 text-blue-400 text-xs font-medium px-3 py-1 rounded-full">
+                  Redisson
+                </span>
+                <span class="bg-amber-900/50 text-amber-400 text-xs font-medium px-3 py-1 rounded-full">
+                  Lua
+                </span>
+                <span class="bg-emerald-900/50 text-emerald-400 text-xs font-medium px-3 py-1 rounded-full">
+                  Gateway
                 </span>
               </div>
               <div class="flex flex-wrap gap-3">
@@ -130,7 +130,7 @@
                   <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
                 </router-link>
                 <a
-                  href="https://github.com/citen-xx/citen-compus-order"
+                  href="https://github.com/citen-xx/citen-compus-dispatch"
                   target="_blank"
                   rel="noreferrer"
                   class="bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg border border-gray-600 transition-all duration-300 inline-flex items-center gap-2"
