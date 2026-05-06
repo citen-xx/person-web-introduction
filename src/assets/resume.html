@@ -25,7 +25,7 @@
     <ul class="list-disc pl-6 mt-2 space-y-1">
       <li>极强的算法基本功与学习能力：GPA 4.8 稳居专业前列，具备扎实的数据结构与底层代码落地能力。</li>
       <li>出色的工程落地与性能优化意识：不局限于简单的 CRUD，在复杂业务中实战运用 Redis 解决分布式限流与缓存击穿痛点，对高可用、高并发场景设计有深入实践与思考。</li>
-      <li>敏锐的 AI 前沿技术嗅觉：已获得华为 HCCDP-AI 开发者高级认证，掌握一定的 RAG 架构与 Agent 工具链开发，可熟练使用 Trae、GitHub copilot 等 AI 辅助编程工具。</li>
+      <li>敏锐的 AI 前沿技术嗅觉：已获得华为 HCCDP-AI 开发者高级认证，具备 Spring AI、RAG、Function Calling 与 LangChain4j 应用落地经验，可熟练使用 Trae、GitHub Copilot 等 AI 辅助编程工具。</li>
     </ul>
   </div>
 
@@ -47,21 +47,20 @@
       <li>核心开发：深入理解 Java 基础（集合、并发），熟练运用 Spring Boot、Spring Security、MyBatis-Plus、AOP 切面编程。</li>
       <li>缓存与中间件：熟练掌握 Redis 核心数据结构，能处理缓存击穿、穿透等高并发痛点（实战运用 Redisson 分布式锁与 Lua 脚本）；了解 RabbitMQ 消息队列的异步解耦应用。</li>
       <li>数据库与工程化：熟练使用 MySQL（索引优化、事务管理）；熟练使用 Git 版本控制、Docker 容器化部署及 Linux(CentOS) 环境运维。</li>
-      <li>人工智能：掌握 RAG（检索增强生成）架构、Dify 智能体开发、Prompt 调优，具备 AI 接口流式网关封装经验。</li>
+      <li>人工智能：掌握 Spring AI、LangChain4j、RAG（检索增强生成）、Function Calling、Prompt 调优与 SSE 流式输出，具备知识库与 AI 接口工程化落地经验。</li>
     </ul>
   </div>
 
   <div class="mb-8">
     <h2 class="text-xl font-bold bg-blue-100 p-2 rounded">项目经历</h2>
     <div class="mt-4">
-      <h3 class="font-semibold">校园智能知识库助手（核心开发） | 2026.02 - 2026.02</h3>
-      <p class="text-gray-600">技术栈：Spring Boot, Dify, Redis, WebFlux (WebClient), Vue3, RuYi(二次开发)</p>
+      <h3 class="font-semibold">校园 AI 问答与知识库管理平台（核心开发） | 2026.02 - 2026.02</h3>
+      <p class="text-gray-600">技术栈：RuoYi、Spring Boot 4、Spring AI、通义千问、Redis Vector Store、OSS、Redis、SSE、Vue2</p>
       <ul class="list-disc pl-6 mt-2 space-y-1">
-        <li>核心定位：针对校园教务咨询痛点，基于 RAG 架构构建的高可用智能 AI 问答助手，实现从知识检索到业务办理的闭环。</li>
-        <li>流式响应优化：摒弃传统同步调用，基于 Spring WebFlux 的 WebClient 封装 Dify API，实现 SSE 流式打字机效果，本地压测：WebFlux 优化后 P99 延迟从 1500ms 降至 600ms（JMeter 100 并发）。</li>
-        <li>高并发安全：针对大型 Token 计费场景，利用 Redis + Lua 脚本设计分布式动态滑动窗口限流器，有效抵御恶意刷单，保障底层安全流量对垒。</li>
-        <li>多级缓存防击穿：引入 Redis + MySQL 多级缓存架构（标准知识库表），结合 Redisson 分布式锁（DCL 双重检查）解决热点问题缓存击穿痛点，使核心问答接口 QPS 提升数倍（压测环境：100 并发，2000 QPS），并实现高耗频问题缓存命中 95%，降低 Token 消耗。</li>
-        <li>智能体演进：实践 Function Calling 机制，将校园教务 API 整合为 Dify 工具，实现了从“纯知识检索”向“业务逻辑办理”的跨越。</li>
+        <li>核心定位：基于 RuoYi 后台二次开发校园 AI 问答平台，打通权限管理、标准问答库运营、知识文档上传、RAG 检索增强、工具调用与流式对话的完整链路。</li>
+        <li>Spring AI 升级：将底层 AI 引擎从早期 Dify 直连迁移到 Spring AI，统一对接通义千问 OpenAI Compatible Endpoint，便于组合 RAG、Function Calling 与会话记忆能力。</li>
+        <li>知识库闭环：完成 OSS 上传、Tika 文档解析、TokenTextSplitter 切片、Redis Vector Store 入库与 similaritySearch 检索增强，实现文档到答案生成的可追溯闭环。</li>
+        <li>会话与稳定性治理：基于 SseEmitter + conversationId + Redis ChatMemory 实现多轮流式对话，并通过 Redis ZSET/Lua 滑动窗口限流与标准问答库降低模型成本、提升接口稳定性。</li>
       </ul>
     </div>
     <div class="mt-4">

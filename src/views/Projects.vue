@@ -6,51 +6,51 @@
           项目大厅
         </h1>
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-          <!-- 项目一：校园智能知识库助手 -->
+          <!-- 项目一：校园 AI 问答与知识库管理平台 -->
           <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-700 hover:border-blue-500/50 group">
             <div class="h-40 bg-gradient-to-r from-blue-600 to-purple-700 flex items-center justify-center relative overflow-hidden">
               <div class="text-white text-3xl font-bold z-10">
-                校园智能知识库
+                AI 知识库平台
               </div>
               <div class="absolute inset-0 bg-gradient-to-br from-blue-600/30 to-purple-700/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute top-0 right-0 w-20 h-20 bg-white/10 backdrop-blur-sm rounded-bl-full"></div>
             </div>
             <div class="p-8">
               <h2 class="text-2xl font-semibold mb-4 group-hover:text-blue-400 transition-colors duration-300">
-                校园智能知识库助手
+                校园 AI 问答与知识库管理平台
               </h2>
               <div class="text-gray-400 mb-6 space-y-4">
                 <p class="leading-relaxed">
-                  面向高校教务与校园生活问答场景，构建基于 RAG（Retrieval-Augmented Generation）架构的校园专属 AI Copilot，将分散制度文档、选课指南与后勤通知沉淀为可实时检索、可追溯回答的智能问答中枢。
+                  基于 RuoYi 后台二次开发，融合 Spring AI、通义千问、Redis Vector Store、OSS 与 SSE，构建面向校园问答、知识库运营与工具调用的一体化 AI 应用平台，覆盖文档上传、向量化入库、RAG 检索增强、多轮会话与后台权限管理。
                 </p>
                 <div>
                   <h4 class="font-semibold text-gray-300 mb-2">核心工程亮点：</h4>
                   <ul class="list-disc pl-5 space-y-2">
-                    <li>基于 WebFlux + SSE 构建低延迟流式响应链路，首字返回控制在 500ms 级别</li>
-                    <li>通过 Redis Lua 实现分布式滑动窗口限流，精细化保护大模型 Token 成本与接口稳定性</li>
-                    <li>采用 Redisson DCL 双重检查锁治理缓存击穿，支撑热点问题下的高并发一致性访问</li>
-                    <li>结合 Redis BitMap 与 ZSet 设计校园热点提问排行榜，满足毫秒级统计与展示需求</li>
+                    <li>将底层 AI 引擎从早期 Dify 直连迁移到 Spring AI，统一接入通义千问并便于组合 RAG、Tools 与 Memory</li>
+                    <li>打通 OSS 上传、Tika 文档解析、TokenTextSplitter 切片与 Redis Vector Store 入库的完整知识库闭环</li>
+                    <li>基于 SseEmitter + conversationId + Redis ChatMemory 实现多轮流式对话与上下文恢复</li>
+                    <li>通过 Redis ZSET/Lua 限流、高频问答库与权限后台治理，兼顾回答稳定性、成本控制与系统可维护性</li>
                   </ul>
                 </div>
               </div>
               <div class="flex flex-wrap gap-2 mb-6">
                 <span class="bg-blue-900/50 text-blue-400 text-xs font-medium px-3 py-1 rounded-full">
-                  Spring Boot
+                  Spring AI
                 </span>
                 <span class="bg-purple-900/50 text-purple-400 text-xs font-medium px-3 py-1 rounded-full">
-                  Dify
+                  Redis Vector Store
                 </span>
                 <span class="bg-red-900/50 text-red-400 text-xs font-medium px-3 py-1 rounded-full">
-                  Redis
+                  OSS
                 </span>
                 <span class="bg-green-900/50 text-green-400 text-xs font-medium px-3 py-1 rounded-full">
-                  WebFlux
+                  SSE
                 </span>
                 <span class="bg-sky-900/50 text-sky-400 text-xs font-medium px-3 py-1 rounded-full">
-                  RAG
+                  RuoYi
                 </span>
                 <span class="bg-indigo-900/50 text-indigo-400 text-xs font-medium px-3 py-1 rounded-full">
-                  SSE
+                  Qwen
                 </span>
               </div>
               <div class="flex flex-wrap gap-3">
@@ -62,7 +62,7 @@
                   <span class="group-hover:translate-x-1 transition-transform duration-300">→</span>
                 </router-link>
                 <a
-                  href="https://github.com/citen-xx/Dify-compus-brillant-helper"
+                  href="https://github.com/citen-xx/springAi-compus-brillant-helper"
                   target="_blank"
                   rel="noreferrer"
                   class="bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg border border-gray-600 transition-all duration-300 inline-flex items-center gap-2"
@@ -142,35 +142,35 @@
             </div>
           </div>
 
-          <!-- 项目三：AI-OJ 智能算法沙箱 -->
+          <!-- 项目三：Simple AI OJ 在线判题平台 -->
           <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-700 hover:border-cyan-500/50 group">
             <div class="h-40 bg-gradient-to-r from-cyan-600 via-sky-600 to-indigo-700 flex items-center justify-center relative overflow-hidden">
               <div class="absolute top-4 left-4 z-20">
                 <span class="bg-white/15 backdrop-blur-md text-cyan-100 text-xs font-semibold px-3 py-1 rounded-full border border-white/20 tracking-wide">
-                  AI-First Project
+                  Live on Cloud
                 </span>
               </div>
               <div class="text-white text-3xl font-bold z-10 text-center px-4">
-                AI-OJ 智能算法沙箱
+                Simple AI OJ
               </div>
               <div class="absolute inset-0 bg-gradient-to-br from-cyan-600/30 to-indigo-700/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute top-0 right-0 w-20 h-20 bg-white/10 backdrop-blur-sm rounded-bl-full"></div>
             </div>
             <div class="p-8">
               <h2 class="text-2xl font-semibold mb-4 group-hover:text-cyan-400 transition-colors duration-300">
-                AI-OJ 智能算法沙箱 (AI-Driven Development)
+                Simple AI OJ 在线判题与 AI 辅导平台
               </h2>
               <div class="text-gray-400 mb-6 space-y-4">
                 <p class="leading-relaxed">
-                  面向在线判题与智能解题辅导场景，系统性实践 ADD（AI-Driven Development）范式。通过深度 Prompt Engineering 驱动 AI 完成约 90% 的业务代码生成，我主要负责核心架构把控、代码评测链路校验、安全边界收敛与线上部署落地。
+                  一个基于 Spring Boot 3、MyBatis-Plus、MySQL 与 Vue 3 构建的简易在线判题系统，覆盖题目管理、Java/C++ 代码评测、AI 辅导、Monaco 在线编辑器与 Docker Compose 部署能力，面向算法训练与轻量级 OJ 演示场景。
                 </p>
                 <div>
                   <h4 class="font-semibold text-gray-300 mb-2">核心技术亮点：</h4>
                   <ul class="list-disc pl-5 space-y-2">
-                    <li>以 AI 驱动全栈研发流程，验证 Cursor / Codex 在真实业务开发中的工程协同与效率提升价值</li>
-                    <li>基于 Java 原生 ProcessBuilder 自研轻量级判题沙箱，支持动态编译、安全执行与 STDIO 自动化比对</li>
-                    <li>集成阿里云通义千问并基于 SSE 构建毫秒级流式反馈，为错误代码提供实时优化建议</li>
-                    <li>通过 Docker Compose 编排 Spring Boot 与 MySQL 8.0 服务，完成云端生产环境快速部署上线</li>
+                    <li>支持题目与测试用例的增删改查，形成完整的题目管理与判题数据链路</li>
+                    <li>基于 Java 原生 ProcessBuilder 实现 Java / C++ 简易编译运行评测与标准输出自动比对</li>
+                    <li>集成 LangChain4j + DashScope（qwen-plus）并通过 SSE 输出流式 AI 解题辅导结果</li>
+                    <li>前端基于 Vue 3 + TailwindCSS + Monaco Editor，后端支持 Docker Compose 一键部署</li>
                   </ul>
                 </div>
                 <p class="text-sm text-cyan-300 break-all">
@@ -182,16 +182,19 @@
                   Spring Boot 3
                 </span>
                 <span class="bg-emerald-900/50 text-emerald-400 text-xs font-medium px-3 py-1 rounded-full">
-                  Vue3
+                  MyBatis-Plus
                 </span>
                 <span class="bg-orange-900/50 text-orange-400 text-xs font-medium px-3 py-1 rounded-full">
-                  Docker
+                  LangChain4j
                 </span>
                 <span class="bg-violet-900/50 text-violet-400 text-xs font-medium px-3 py-1 rounded-full">
-                  Qwen API
+                  DashScope
                 </span>
                 <span class="bg-cyan-900/50 text-cyan-400 text-xs font-medium px-3 py-1 rounded-full">
-                  SSE
+                  Monaco Editor
+                </span>
+                <span class="bg-slate-800/70 text-slate-300 text-xs font-medium px-3 py-1 rounded-full">
+                  Docker Compose
                 </span>
               </div>
               <div class="flex flex-wrap gap-3">

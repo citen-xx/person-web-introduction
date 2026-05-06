@@ -46,57 +46,55 @@
         <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700 prose prose-invert max-w-none">
           <div v-if="projectId === 'ai-assistant'">
             <h2>项目背景</h2>
-            <p>面向高校教务与校园生活问答场景，构建基于 RAG（Retrieval-Augmented Generation）架构的校园专属 AI Copilot，将分散制度文档、选课指南与后勤通知沉淀为可实时检索、可追溯回答的智能问答中枢，为师生提供 24/7 的智能咨询服务。</p>
+            <p>这是一个基于 RuoYi 后台框架二次开发的校园 AI 问答与知识库管理平台，融合 Spring AI、通义千问、Redis Vector Store、OSS、SSE 与后台权限管理能力，覆盖标准问答库运营、知识文档上传、向量化入库、RAG 检索增强、Function Calling 与多轮会话记忆，目标不是聊天 Demo，而是可持续扩展的真实 AI 应用型后台系统。</p>
 
             <h2>核心亮点</h2>
             <ul>
-              <li><strong>WebFlux + SSE 低延迟响应链路</strong>：实现 500ms 级首字返回与流式“打字机”交互体验</li>
-              <li><strong>Redis Lua 分布式滑动窗口限流</strong>：对调用频次与 Token 成本进行精细化治理</li>
-              <li><strong>Redisson DCL 缓存击穿防护</strong>：支撑热点问题场景下的高并发一致性访问</li>
-              <li><strong>Redis BitMap + ZSet 热点统计</strong>：构建毫秒级校园热点提问排行榜与活跃度分析能力</li>
+              <li><strong>Spring AI 驱动的通义千问接入</strong>：将早期 Dify 直连模式迁移为 Spring AI 统一抽象，便于组合 RAG、Functions 与 Memory</li>
+              <li><strong>RAG 知识库闭环</strong>：完成 OSS 上传、Tika 文档解析、TokenTextSplitter 切片、Redis Vector Store 入库到 similaritySearch 检索的全链路</li>
+              <li><strong>SSE 流式对话 + Redis ChatMemory</strong>：基于 conversationId 支持多轮会话、上下文恢复与打字机式输出体验</li>
+              <li><strong>标准问答库与限流治理</strong>：通过高频问答库、Redis ZSET/Lua 限流与后台权限体系兼顾稳定性、成本与可维护性</li>
             </ul>
 
             <h2>架构设计与技术栈</h2>
             <ul>
-              <li>核心框架: Spring Boot 3, Vue3, TailwindCSS</li>
-              <li>AI 模型接入: Dify (大语言模型编排引擎), Spring WebFlux</li>
-              <li>缓存与高并发中间件: Redis, Redisson 分布式锁</li>
+              <li>核心框架: RuoYi, Spring Boot 4.0.3, Spring Security, JWT</li>
+              <li>AI 能力接入: Spring AI 1.0.0-M6, 通义千问 OpenAI Compatible API, Function Calling</li>
+              <li>知识库链路: OSS, TikaDocumentReader, TokenTextSplitter, Redis Vector Store, RAG</li>
+              <li>稳定性治理: Redis, Redisson, SSE, ChatMemory, Redis ZSET/Lua 限流</li>
             </ul>
 
             <h2>技术实现细节</h2>
-            <h3>1. 毫秒级打字机效果实现</h3>
-            <p>大模型推理存在固有的高延迟，传统 HTTP 同步请求会导致前端出现 10 秒以上的“假死”等待。本项目通过以下技术实现了流畅的流式响应：</p>
+            <h3>1. 基于若依后台的 AI 应用二开</h3>
+            <p>项目复用了若依成熟的后台基础设施，不再重复建设权限、日志、认证等系统能力，而是将 AI 业务模块叠加在现有平台之上：</p>
             <ul>
-              <li>使用 Spring WebFlux 的 WebClient 进行异步非阻塞 API 调用，避免线程阻塞</li>
-              <li>在表现层采用 SSE（Server-Sent Events）协议，建立服务器到客户端的单向长连接</li>
-              <li>将大模型的流式输出实时推送到前端，实现“打字机”效果。</li>
-              <li>首字响应控制在 500ms 内，大幅提升用户体验。</li>
+              <li>复用 RuoYi 的用户、角色、菜单、日志审计与参数配置体系</li>
+              <li>在 `ruoyi-admin / ruoyi-system / ruoyi-framework / ruoyi-ui` 上叠加 AI 对话、知识文档与工具调用能力</li>
+              <li>更贴近企业真实开发模式，具备稳定后台基础与持续扩展空间</li>
             </ul>
 
-            <h3>2. Redis Lua 分布式滑动窗口限流</h3>
-            <p>针对大模型接口高昂的 Token 计费属性，防止恶意脚本刷单是核心痛点：</p>
+            <h3>2. RAG 知识库闭环与文档向量化</h3>
+            <p>围绕校园制度、通知公告和办事文档，项目打通了从文档上传到检索增强的完整知识入库链路：</p>
             <ul>
-              <li>通过深度定制 Redis + Lua 脚本，实现原子性的分布式滑动窗口限流器</li>
-              <li>对全局调用频率与单用户提问频次进行双重动态阻断</li>
-              <li>保障底层模型资源的高可用性与安全性，避免 Token 资产浪费。</li>
+              <li>前端上传文件后由后端接入阿里云 OSS 存储</li>
+              <li>通过 `TikaDocumentReader` 解析文本、`TokenTextSplitter` 切片并写入 Redis Vector Store</li>
+              <li>对话时执行 `similaritySearch` 召回片段并拼接为系统提示词，再交给模型生成答案</li>
             </ul>
 
-            <h3>3. Redisson DCL 解决缓存击穿</h3>
-            <p>针对“节假日放假安排”等突发型校园热点问题，普通缓存极易失效并引发“缓存击穿”：</p>
+            <h3>3. SSE 流式输出、多轮会话与工具调用</h3>
+            <p>项目在 AI 对话层不仅实现了流式返回，还加入了会话记忆与数据库工具调用：</p>
             <ul>
-              <li>设计基于 Redisson 分布式锁的 DCL（双重检查锁）架构</li>
-              <li>当热点 Key 失效时，仅放行单线程去请求大模型重建缓存</li>
-              <li>其余线程自旋等待，避免同时冲击数据库与 AI 接口</li>
-              <li>实现热点并发流量下 100% 的数据库零冲击与 0 Token 消耗</li>
+              <li>基于 `SseEmitter` 输出流式响应，前端通过 `fetch + ReadableStream` 呈现打字机效果</li>
+              <li>以 `conversationId` 作为会话主键，借助 Redis ChatMemory 持久化上下文</li>
+              <li>向模型暴露 `getStudentScore`、`getCardBalance` 等真实数据库查询工具，形成 Function Calling 能力</li>
             </ul>
 
-            <h3>4. Redis BitMap 内存压榨技术</h3>
-            <p>在系统活跃度统计与热榜模块中，摒弃了传统的 MySQL 行级记录：</p>
+            <h3>4. 问答库、限流与成本治理</h3>
+            <p>针对 AI 接口高成本与稳定性要求，项目设计了确定性问答优先与限流保护的双重方案：</p>
             <ul>
-              <li>使用 Redis BitMap 记录用户每日签到，将单用户年度签到数据压缩至仅约 46 字节</li>
-              <li>结合 ZSet（跳表）实时计算全站搜索频次</li>
-              <li>构建毫秒级响应的“校园热点提问 Feed 流排行榜”</li>
-              <li>大幅降低内存占用，提升系统性能</li>
+              <li>通过 AI 标准问答库承接高频、确定性问题，降低模型调用成本</li>
+              <li>使用 Redis ZSET 滑动窗口限流与 Lua 原子操作保护 AI 对话接口</li>
+              <li>结合后台权限与知识文档管理能力，让回答来源可运营、可追溯、可审计</li>
             </ul>
           </div>
 
@@ -163,55 +161,55 @@
 
           <div v-else-if="projectId === 'ai-oj-sandbox'">
             <h2>项目背景</h2>
-            <p>面向在线判题与智能解题辅导场景，系统性实践 ADD（AI-Driven Development）范式。通过深度 Prompt Engineering 驱动 AI 完成约 90% 的业务代码生成，我主要负责核心架构把控、代码评测链路校验、安全边界收敛与线上部署落地，验证了 AI 协同开发在真实项目中的工程可行性。</p>
+            <p>这是一个基于 Spring Boot 3、MyBatis-Plus、MySQL 与 Vue 3 构建的简易在线判题系统，覆盖题目管理、测试用例维护、Java/C++ 代码评测、AI 解题辅导、Monaco 在线编辑器与 Docker Compose 部署能力，定位于轻量级 OJ 训练与 AI 辅助编程实践场景。</p>
 
             <h2>核心亮点</h2>
             <ul>
-              <li><strong>AI 驱动全栈研发流程</strong>：基于 Prompt Engineering 高效协同 Cursor / Codex，显著提升业务开发效率</li>
-              <li><strong>自研微型代码评测引擎</strong>：使用 Java 原生 ProcessBuilder 实现动态编译、安全执行与 STDIO 自动化比对</li>
-              <li><strong>Qwen + SSE 实时流式辅导</strong>：为错误代码提供毫秒级流式优化建议与智能分析反馈</li>
-              <li><strong>Docker Compose 云端部署</strong>：完成 Spring Boot 与 MySQL 8.0 的容器编排与生产环境快速上线</li>
+              <li><strong>题目与测试用例管理</strong>：支持题目基础信息、详情页和测试用例的完整增删改查</li>
+              <li><strong>Java / C++ 简易判题引擎</strong>：基于 ProcessBuilder 完成编译运行、标准输出比对与错误结果返回</li>
+              <li><strong>LangChain4j + DashScope 流式辅导</strong>：基于 qwen-plus 和 SSE 输出错误代码分析与优化建议</li>
+              <li><strong>前后端一体化交付</strong>：Vue 3 + Monaco Editor 实现在线编辑体验，Docker Compose 支持快速部署上线</li>
             </ul>
 
             <h2>架构设计与技术栈</h2>
             <ul>
-              <li>核心框架: Spring Boot 3, Vue3, Vite</li>
-              <li>AI 能力接入: 阿里云通义千问 API, SSE 流式输出</li>
-              <li>评测与运行时: Java ProcessBuilder, 编译执行隔离, STDIO 自动判题</li>
-              <li>部署方案: Docker, Docker Compose, MySQL 8.0, 云服务器生产环境</li>
+              <li>核心框架: Spring Boot 3.3.5, MyBatis-Plus 3.5.7, MySQL 8.0</li>
+              <li>AI 能力接入: LangChain4j 0.36.2, DashScope / qwen-plus, SSE 流式输出</li>
+              <li>前端体系: Vue 3, Vite 5, TailwindCSS, Monaco Editor</li>
+              <li>部署方案: Docker, Docker Compose, 前后端一体化构建</li>
             </ul>
 
             <h2>技术实现细节</h2>
-            <h3>1. ADD（AI-Driven Development）工程化落地</h3>
-            <p>项目并非简单使用 AI 辅助编码，而是将 AI 纳入完整研发流程，形成“需求拆解 - Prompt 设计 - 结果约束 - 人工校验 - 架构收敛”的协作闭环：</p>
+            <h3>1. 题目管理与数据初始化</h3>
+            <p>项目围绕在线判题系统的基础数据模型，提供题目与测试用例的管理能力：</p>
             <ul>
-              <li>通过结构化 Prompt 明确接口契约、边界条件与代码风格约束</li>
-              <li>利用 AI 快速生成 CRUD、页面交互与业务骨架，将精力集中在关键链路与架构决策</li>
-              <li>对生成代码进行安全性、正确性与可维护性校验，确保工程质量可控</li>
+              <li>支持题目列表、题目详情、测试用例维护与基础 CRUD 操作</li>
+              <li>通过 `schema.sql` 与 `init-data.sql` 完成表结构与初始化题目的快速导入</li>
+              <li>为判题与 AI 辅导模块提供稳定的题目上下文与标准答案依据</li>
             </ul>
 
-            <h3>2. 基于 ProcessBuilder 的轻量级判题沙箱</h3>
-            <p>针对算法题运行与判题需求，自研微型代码评测引擎，兼顾实现成本、执行效率与基础安全隔离：</p>
+            <h3>2. 基于 ProcessBuilder 的简易判题引擎</h3>
+            <p>针对 Java / C++ 代码提交，项目通过原生子进程能力构建轻量级编译运行链路：</p>
             <ul>
-              <li>基于 Java 原生 ProcessBuilder 驱动用户代码动态编译与子进程执行</li>
-              <li>围绕输入输出流构建 STDIO 自动化比对机制，完成判题结果校验</li>
-              <li>通过执行超时、异常捕获与运行边界控制降低不安全代码带来的风险</li>
+              <li>使用 Java 原生 ProcessBuilder 动态完成编译、运行与异常捕获</li>
+              <li>围绕标准输入输出构建自动化比对逻辑，返回 AC / WA / 编译错误等结果</li>
+              <li>适合演示和轻量使用，同时保留向更严格沙箱机制扩展的空间</li>
             </ul>
 
-            <h3>3. 基于 SSE 的大模型实时辅导能力</h3>
-            <p>针对用户提交错误代码后的分析反馈，接入阿里云通义千问并设计低延迟流式交互体验：</p>
+            <h3>3. LangChain4j + DashScope 的 AI 流式辅导</h3>
+            <p>针对用户提交的错误代码、题目内容与报错输出，项目提供流式 AI 辅导能力：</p>
             <ul>
-              <li>通过 SSE 将模型输出实时推送至前端，形成“打字机式”连续反馈</li>
-              <li>围绕题目上下文、报错信息与用户代码组织提示词，提升建议的针对性与可执行性</li>
-              <li>为算法训练场景补充“判题 + 讲解 + 优化建议”的闭环体验</li>
+              <li>基于 LangChain4j 对接 DashScope 的 `qwen-plus` 模型</li>
+              <li>使用 `SseEmitter` 将辅导结果实时推送给前端，形成打字机式反馈体验</li>
+              <li>围绕题目内容、错误代码和错误输出组织提示词，增强建议的针对性</li>
             </ul>
 
-            <h3>4. 容器化部署与生产环境落地</h3>
-            <p>项目已完成线上部署，具备从开发到生产的完整交付链路：</p>
+            <h3>4. Monaco 编辑器与 Docker Compose 部署</h3>
+            <p>项目不仅完成了判题与 AI 辅导能力，还提供了完整的前后端交付方案：</p>
             <ul>
-              <li>基于 Docker Compose 编排 Spring Boot、MySQL 8.0 等核心服务</li>
-              <li>支持镜像构建、环境变量注入与服务一键启动</li>
-              <li>将本地开发成果平滑迁移至云端服务器，缩短部署周期并提升可复现性</li>
+              <li>前端基于 Vue 3、TailwindCSS 与 Monaco Editor 搭建在线编码页面</li>
+              <li>通过 Dockerfile 和 Docker Compose 编排后端服务与 MySQL 8.0</li>
+              <li>支持本地开发、服务器部署与前后端一体化打包构建</li>
             </ul>
           </div>
 
@@ -238,24 +236,24 @@ type ProjectAction = {
 const route = useRoute()
 const projectId = computed(() => route.params.id as string)
 
-  const projectTitle = computed(() => {
+const projectTitle = computed(() => {
   if (projectId.value === 'ai-assistant') {
-    return '校园智能知识库助手'
+    return '校园 AI 问答与知识库管理平台'
   } else if (projectId.value === 'order-system') {
     return '校园智算中心预约与资源调度系统'
   } else if (projectId.value === 'ai-oj-sandbox') {
-    return 'AI-OJ 智能算法沙箱 (AI-Driven Development)'
+    return 'Simple AI OJ 在线判题与 AI 辅导平台'
   }
   return '项目详情'
 })
 
 const projectTags = computed(() => {
   if (projectId.value === 'ai-assistant') {
-    return ['Spring Boot', 'Dify', 'Redis', 'WebFlux', 'RAG', 'SSE']
+    return ['Spring AI', 'Redis Vector Store', 'OSS', 'RAG', 'Function Calling', 'SSE']
   } else if (projectId.value === 'order-system') {
     return ['Spring Cloud Alibaba', 'Redis', 'RabbitMQ', 'Redisson', 'Lua', 'Gateway']
   } else if (projectId.value === 'ai-oj-sandbox') {
-    return ['Spring Boot 3', 'Vue3', 'Docker', 'Qwen API', 'SSE', 'ProcessBuilder']
+    return ['Spring Boot 3', 'MyBatis-Plus', 'LangChain4j', 'DashScope', 'Monaco Editor', 'Docker Compose']
   }
   return []
 })
@@ -265,7 +263,7 @@ const projectActions = computed<ProjectAction[]>(() => {
     return [
       {
         label: 'GitHub',
-        href: 'https://github.com/citen-xx/Dify-compus-brillant-helper',
+        href: 'https://github.com/citen-xx/springAi-compus-brillant-helper',
         icon: '→',
         variant: 'secondary'
       }
