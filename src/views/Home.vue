@@ -8,14 +8,14 @@
           <div class="lg:w-1/2">
             <div class="mb-2">
               <span class="bg-blue-600/20 text-blue-400 text-sm font-medium px-3 py-1 rounded-full">
-                全栈开发者 & AI 架构师
+                Java 后端开发实习生
               </span>
             </div>
             <h1 class="text-4xl md:text-6xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
               Hi, 我是刘益华
             </h1>
             <p class="text-xl text-gray-300 mb-8">
-              聚焦高并发后端、AI 智能体应用与云端工程交付
+              聚焦 AI 应用开发、高并发后端与云端工程交付
             </p>
             <div class="flex flex-wrap gap-4 mb-8">
 
@@ -27,15 +27,15 @@
               </a>
             </div>
             <div class="flex items-center gap-4">
-              <div class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors">
+              <a href="https://github.com/citen-xx" target="_blank" rel="noreferrer" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors">
                 <span class="text-sm">GH</span>
-              </div>
-              <div class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors">
-                <span class="text-sm">IN</span>
-              </div>
-              <div class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors">
-                <span class="text-sm">TG</span>
-              </div>
+              </a>
+              <a href="https://lyhpersonweb.top" target="_blank" rel="noreferrer" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors">
+                <span class="text-xs">WEB</span>
+              </a>
+              <a href="mailto:liuyihua2609@163.com" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors">
+                <span class="text-sm">@</span>
+              </a>
             </div>
           </div>
           
@@ -43,13 +43,13 @@
           <div class="lg:w-1/2">
             <div class="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-700 hover:border-gray-600 transition-colors">
               <p class="text-gray-300 leading-relaxed">
-                目前专业排名前 10%（GPA: 4.8 / 5.0），持有华为 HCCDP-AI 工作级认证。持续聚焦分布式系统、RAG 应用落地与 AI 驱动开发实践，具备从需求分析、系统设计、核心编码到部署上线的完整交付能力。
+                GPA 4.5，持有华为云 HCCDP-AI 认证。具备 Spring AI、LangChain4j、RAG、Function Calling 与高并发后端工程实践经验，能独立完成从系统设计、核心编码、云端部署到线上联调的完整交付闭环。
               </p>
               <div class="mt-6 flex flex-wrap gap-2">
-                <span class="bg-gray-700/80 text-gray-200 text-xs font-medium px-3 py-1.5 rounded-full">高并发后端</span>
-                <span class="bg-gray-700/80 text-gray-200 text-xs font-medium px-3 py-1.5 rounded-full">微服务架构</span>
-                <span class="bg-gray-700/80  text-gray-200 text-xs font-medium px-3 py-1.5 rounded-full">RAG / Agent</span>
-                <span class="bg-gray-700/80  text-gray-200 text-xs font-medium px-3 py-1.5 rounded-full">Docker 部署</span>
+                <span class="bg-gray-700/80 text-gray-200 text-xs font-medium px-3 py-1.5 rounded-full">Spring AI / RAG</span>
+                <span class="bg-gray-700/80 text-gray-200 text-xs font-medium px-3 py-1.5 rounded-full">高并发调度</span>
+                <span class="bg-gray-700/80 text-gray-200 text-xs font-medium px-3 py-1.5 rounded-full">Docker Compose</span>
+                <span class="bg-gray-700/80 text-gray-200 text-xs font-medium px-3 py-1.5 rounded-full">Vercel / Nginx</span>
               </div>
               <div class="mt-6 flex items-center gap-2">
                 <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
@@ -141,15 +141,15 @@
               </div>
               <div class="flex-1">
                 <h3 class="text-2xl font-semibold mb-2 group-hover:text-green-400 transition-colors duration-300">
-                  数据库
+                  数据库与缓存
                 </h3>
                 <p class="text-gray-400 mb-4 text-sm">
-                  聚焦 MySQL 数据建模、事务隔离、索引优化与执行计划分析
+                  聚焦 MySQL 执行计划分析、MVCC 并发控制与 Redis 高并发治理
                 </p>
                 <ul class="space-y-2 mb-5 text-sm text-gray-300 leading-relaxed">
-                  <li>理解 InnoDB 存储引擎、MVCC、多版本并发控制与锁机制</li>
-                  <li>能够基于慢 SQL、索引命中率与执行计划定位查询性能问题</li>
-                  <li>具备面向业务场景的数据表设计、字段约束与查询优化意识</li>
+                  <li>熟悉 MySQL 基础架构、事务隔离级别与 MVCC 并发控制机制</li>
+                  <li>能够使用 EXPLAIN 分析执行计划并完成基础索引优化</li>
+                  <li>理解 Redisson 锁续期机制，可结合 Lua 脚本实现高并发场景原子操作与限流</li>
                 </ul>
                 <div class="flex flex-wrap gap-2">
                   <div class="bg-gray-700/80 hover:bg-green-900/50 text-gray-300 hover:text-green-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-green-500/20">
@@ -183,15 +183,15 @@
               </div>
               <div class="flex-1">
                 <h3 class="text-2xl font-semibold mb-2 group-hover:text-cyan-400 transition-colors duration-300">
-                  微服务与高可用架构
+                  微服务与异步解耦
                 </h3>
                 <p class="text-gray-400 mb-4 text-sm">
-                  面向复杂业务拆分的服务治理、流量保护与分布式事务控制
+                  面向分布式业务拆分的服务治理、流量控制与消息队列异步削峰
                 </p>
                 <ul class="space-y-2 mb-5 text-sm text-gray-300 leading-relaxed">
-                  <li>具备基于 Nacos 的服务注册发现、配置管理与环境隔离能力</li>
-                  <li>熟悉 Gateway、Sentinel 在网关鉴权、限流熔断与降级中的组合使用</li>
-                  <li>能够处理跨服务调用、最终一致性与异步履约等分布式问题</li>
+                  <li>具备基于 Nacos 与 Gateway 的基础服务治理与统一流量入口实践</li>
+                  <li>了解 Sentinel 基本流量控制策略，能够处理高并发资源预约类场景</li>
+                  <li>熟悉 RabbitMQ 核心组件，能结合死信队列完成超时处理与系统削峰填谷</li>
                 </ul>
                 <div class="flex flex-wrap gap-2">
                   <div class="bg-gray-700/80 hover:bg-cyan-900/50 text-gray-300 hover:text-cyan-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-cyan-500/20">
@@ -228,15 +228,15 @@
               </div>
               <div class="flex-1">
                 <h3 class="text-2xl font-semibold mb-2 group-hover:text-purple-400 transition-colors duration-300">
-                  AI 研发
+                  AI 应用开发
                 </h3>
                 <p class="text-gray-400 mb-4 text-sm">
-                  聚焦 RAG 应用落地、提示词工程、大模型编排与 Agent 系统设计
+                  聚焦 Spring AI、LangChain4j、RAG、Function Calling 与 SSE 流式输出
                 </p>
                 <ul class="space-y-2 mb-5 text-sm text-gray-300 leading-relaxed">
-                  <li>具备从知识库构建、召回增强到结果生成的完整 RAG 落地实践</li>
-                  <li>能够围绕业务场景设计 Prompt、上下文拼接策略与输出约束机制</li>
-                  <li>熟悉流式响应、Agent 工作流与 AI 驱动开发的工程化应用方式</li>
+                  <li>了解 RAG 与 Agent 架构，具备将传统校园业务 API 工具化接入大模型调度流的经验</li>
+                  <li>熟悉 Spring AI 与 LangChain4j 两条原生 AI 应用开发路径</li>
+                  <li>具备长文本截断、SSE 流式长连接与结构化 Prompt 设计等工程实践</li>
                 </ul>
                 <div class="flex flex-wrap gap-2">
                   <div class="bg-gray-700/80 hover:bg-purple-900/50 text-gray-300 hover:text-purple-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-purple-500/20">
@@ -252,7 +252,7 @@
                     提示词工程
                   </div>
                   <div class="bg-gray-700/80 hover:bg-purple-900/50 text-gray-300 hover:text-purple-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-purple-500/20">
-                    Agent 开发
+                    Function Calling
                   </div>
                   <div class="bg-gray-700/80 hover:bg-purple-900/50 text-gray-300 hover:text-purple-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-purple-500/20">
                     Qwen API
@@ -276,22 +276,22 @@
               </div>
               <div class="flex-1">
                 <h3 class="text-2xl font-semibold mb-2 group-hover:text-yellow-400 transition-colors duration-300">
-                  前端与 DevOps
+                  运维部署与云原生
                 </h3>
                 <p class="text-gray-400 mb-4 text-sm">
-                  覆盖 Vue 前端实现、工程化构建、容器化部署与版本协作流程
+                  覆盖 Linux 运维、容器化编排、反向代理与前后端分离发布流程
                 </p>
                 <ul class="space-y-2 mb-5 text-sm text-gray-300 leading-relaxed">
-                  <li>能够基于 Vue3 + Vite 构建响应式页面并完成组件化与样式组织</li>
-                  <li>熟悉 Docker / Docker Compose 的镜像构建、服务编排与环境部署</li>
-                  <li>具备 Git 协作、前后端联调、线上发布与基础运维排障能力</li>
+                  <li>具有阿里云服务器独立运维与排障经验，熟悉 Linux 基础命令、防火墙与安全组配置</li>
+                  <li>熟悉 Docker Compose 容器化编排与 Nginx 反向代理配置</li>
+                  <li>具备 Vercel 前端自动化构建、跨域联调与前后端分离架构线上发布经验</li>
                 </ul>
                 <div class="flex flex-wrap gap-2">
                   <div class="bg-gray-700/80 hover:bg-yellow-900/50 text-gray-300 hover:text-yellow-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-yellow-500/20">
                     Vue3
                   </div>
                   <div class="bg-gray-700/80 hover:bg-yellow-900/50 text-gray-300 hover:text-yellow-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-yellow-500/20">
-                    Trae
+                    Nginx
                   </div>
                   <div class="bg-gray-700/80 hover:bg-yellow-900/50 text-gray-300 hover:text-yellow-300 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-300 group-hover:scale-105 hover:shadow hover:shadow-yellow-500/20">
                     Docker

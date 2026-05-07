@@ -46,170 +46,162 @@
         <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700 prose prose-invert max-w-none">
           <div v-if="projectId === 'ai-assistant'">
             <h2>项目背景</h2>
-            <p>这是一个基于 RuoYi 后台框架二次开发的校园 AI 问答与知识库管理平台，融合 Spring AI、通义千问、Redis Vector Store、OSS、SSE 与后台权限管理能力，覆盖标准问答库运营、知识文档上传、向量化入库、RAG 检索增强、Function Calling 与多轮会话记忆，目标不是聊天 Demo，而是可持续扩展的真实 AI 应用型后台系统。</p>
+            <p>针对校园教务咨询场景开发的 AI 问答系统，旨在将复杂的教务规章制度、私有知识文档与传统查询 API 整合进大模型对话中。项目以若依后台为基础，升级为 Spring AI 驱动的校园智能知识库助手，覆盖 Agent 工具调度、RAG 私有知识库、SSE 流式会话与分布式会话管控。</p>
 
             <h2>核心亮点</h2>
             <ul>
-              <li><strong>Spring AI 驱动的通义千问接入</strong>：将早期 Dify 直连模式迁移为 Spring AI 统一抽象，便于组合 RAG、Functions 与 Memory</li>
-              <li><strong>RAG 知识库闭环</strong>：完成 OSS 上传、Tika 文档解析、TokenTextSplitter 切片、Redis Vector Store 入库到 similaritySearch 检索的全链路</li>
-              <li><strong>SSE 流式对话 + Redis ChatMemory</strong>：基于 conversationId 支持多轮会话、上下文恢复与打字机式输出体验</li>
-              <li><strong>标准问答库与限流治理</strong>：通过高频问答库、Redis ZSET/Lua 限流与后台权限体系兼顾稳定性、成本与可维护性</li>
+              <li><strong>Agent 工具调度与接口原子化</strong>：通过 Spring AI Function Calling 将成绩查询、校园卡余额等传统业务接口工具化接入，结合若依 Token 鉴权实现用户身份安全透传</li>
+              <li><strong>RAG 私有知识库闭环</strong>：打通“前端上传 - OSS 云端存储 - 后端异步拉取 - 文档清洗分块 - Redis 向量化存储”全链路，落库约 500+ 条校园规章向量数据</li>
+              <li><strong>专有问答准确率显著提升</strong>：采用 500 到 800 Token 粒度语义分块与 Top-K（K=3）向量召回，专有业务问答准确率由基座模型约 35% 提升至 88% 以上</li>
+              <li><strong>SSE 流式响应与分布式会话记忆</strong>：首字响应时间控制在 400ms 到 600ms，单节点 2G 堆内存下稳定支撑 150 到 200 级并发流式长连接</li>
             </ul>
 
             <h2>架构设计与技术栈</h2>
             <ul>
               <li>核心框架: RuoYi, Spring Boot 4.0.3, Spring Security, JWT</li>
               <li>AI 能力接入: Spring AI 1.0.0-M6, 通义千问 OpenAI Compatible API, Function Calling</li>
-              <li>知识库链路: OSS, TikaDocumentReader, TokenTextSplitter, Redis Vector Store, RAG</li>
-              <li>稳定性治理: Redis, Redisson, SSE, ChatMemory, Redis ZSET/Lua 限流</li>
+              <li>知识库链路: 阿里云 OSS, TikaDocumentReader, TokenTextSplitter, Redis Vector Store, RAG</li>
+              <li>稳定性治理: Redis, SSE, ChatMemory, Token 动态截断, Redis ZSET/Lua 限流</li>
             </ul>
 
             <h2>技术实现细节</h2>
-            <h3>1. 基于若依后台的 AI 应用二开</h3>
-            <p>项目复用了若依成熟的后台基础设施，不再重复建设权限、日志、认证等系统能力，而是将 AI 业务模块叠加在现有平台之上：</p>
+            <h3>1. Agent 工具调度与接口原子化</h3>
+            <p>统一配置大模型工具，将传统校园业务接口原子化后纳入大模型调度流，使模型能够按需自主调用业务能力：</p>
             <ul>
-              <li>复用 RuoYi 的用户、角色、菜单、日志审计与参数配置体系</li>
-              <li>在 `ruoyi-admin / ruoyi-system / ruoyi-framework / ruoyi-ui` 上叠加 AI 对话、知识文档与工具调用能力</li>
-              <li>更贴近企业真实开发模式，具备稳定后台基础与持续扩展空间</li>
+              <li>将成绩查询、校园卡余额查询等传统 CRUD 接口接入 Spring AI Function Calling</li>
+              <li>复用若依原生 Token 拦截链路完成用户身份透传与数据隔离</li>
+              <li>让系统从“知识问答”演进到“问答 + 工具办理”一体化校园助手</li>
             </ul>
 
-            <h3>2. RAG 知识库闭环与文档向量化</h3>
-            <p>围绕校园制度、通知公告和办事文档，项目打通了从文档上传到检索增强的完整知识入库链路：</p>
+            <h3>2. RAG 私有知识库与云端入库链路</h3>
+            <p>针对教务规章与制度说明易产生大模型幻觉的问题，项目构建了基于阿里云 OSS 的自动化知识入库流水线：</p>
             <ul>
-              <li>前端上传文件后由后端接入阿里云 OSS 存储</li>
-              <li>通过 `TikaDocumentReader` 解析文本、`TokenTextSplitter` 切片并写入 Redis Vector Store</li>
-              <li>对话时执行 `similaritySearch` 召回片段并拼接为系统提示词，再交给模型生成答案</li>
+              <li>实现“前端上传 - OSS 存储 - 后端异步拉取 - 文档清洗分块 - Redis 向量化存储”的完整闭环</li>
+              <li>采用 500 到 800 Token 粒度进行语义分块，累计落库约 500+ 条校园规章向量数据</li>
+              <li>基于 Top-K（K=3）向量召回动态补充上下文，使专有问答准确率显著提升</li>
             </ul>
 
-            <h3>3. SSE 流式输出、多轮会话与工具调用</h3>
-            <p>项目在 AI 对话层不仅实现了流式返回，还加入了会话记忆与数据库工具调用：</p>
+            <h3>3. 异步流式响应体验优化</h3>
+            <p>针对大模型推理带来的长时阻塞问题，在会话控制层基于原生异步推送组件封装流式长连接：</p>
             <ul>
-              <li>基于 `SseEmitter` 输出流式响应，前端通过 `fetch + ReadableStream` 呈现打字机效果</li>
-              <li>以 `conversationId` 作为会话主键，借助 Redis ChatMemory 持久化上下文</li>
-              <li>向模型暴露 `getStudentScore`、`getCardBalance` 等真实数据库查询工具，形成 Function Calling 能力</li>
+              <li>将大模型首字响应时间稳定控制在 400ms 到 600ms</li>
+              <li>前端补充断线重连与富文本实时渲染机制，优化交互体验</li>
+              <li>将同步阻塞转为事件驱动的流式推送链路，降低接口等待体感</li>
             </ul>
 
-            <h3>4. 问答库、限流与成本治理</h3>
-            <p>针对 AI 接口高成本与稳定性要求，项目设计了确定性问答优先与限流保护的双重方案：</p>
+            <h3>4. 长连接异步化与分布式会话管控</h3>
+            <p>针对大模型长轮询导致的工作线程耗尽问题，项目自研分布式会话记忆与 Token 动态截断机制：</p>
             <ul>
-              <li>通过 AI 标准问答库承接高频、确定性问题，降低模型调用成本</li>
-              <li>使用 Redis ZSET 滑动窗口限流与 Lua 原子操作保护 AI 对话接口</li>
-              <li>结合后台权限与知识文档管理能力，让回答来源可运营、可追溯、可审计</li>
+              <li>底层依托 Redis 存储多轮对话上下文，实现会话记忆分布式持久化</li>
+              <li>结合滑动窗口算法进行 Token 动态截断，阈值控制为最近 10 轮对话或 4096 Token</li>
+              <li>在单节点 2G JVM 堆配置下，压测支撑 150 到 200 级并发流式长连接且无 OOM</li>
             </ul>
           </div>
 
           <div v-else-if="projectId === 'order-system'">
             <h2>项目背景</h2>
-            <p>面向校园智算中心 GPU 节点、实训室工位、深度学习工作站与高价值实验资源时段，构建高可用资源调度中台。该项目作为上层校园智能问答助手的底层业务执行引擎，承接大模型 Function Calling 下发的预约、抢占、释放与状态查询指令，解决稀缺资源在高并发场景下的超额分配、状态一致性与超时回收问题。</p>
+            <p>针对校园内计算中心与实验室资源高度紧缺、预约抢占常伴随瞬时高并发流量的业务痛点，开发分布式微服务调度中台，实现实体座位与虚拟算力等异构资源的高效分配与预约履约。项目聚焦高并发防超卖、异步削峰、统一鉴权与实时通知，是校园资源调度场景下的完整工程化实践。</p>
 
             <h2>核心亮点</h2>
             <ul>
-              <li><strong>Nacos + Gateway 微服务治理</strong>：完成网关、用户凭证、资源调度等服务拆分，统一接入层与无状态鉴权链路</li>
-              <li><strong>Redis + Lua + Stream 强一致抢占</strong>：围绕稀缺资源额度控制构建原子扣减、异步削峰与重复预约防护机制</li>
-              <li><strong>Redisson + MySQL 双层兜底</strong>：在异步落库阶段按用户维度串行化处理，保障预约状态最终一致</li>
-              <li><strong>RabbitMQ 柔性事务闭环</strong>：通过延迟消息与死信队列实现超时违约自动回收与额度恢复</li>
+              <li><strong>高并发防超卖与分布式锁控制</strong>：Redis + Lua 预扣减配合 Redisson 分布式锁，JMeter 500 瞬时并发下单机抢座接口 QPS 峰值达 1200+，P99 延迟稳定在 50ms 内</li>
+              <li><strong>MQ 异步削峰与超时关单链路</strong>：RabbitMQ 将数据库瞬时写入 QPS 从 1000 压平至约 100，并通过死信队列完成 15 分钟超时自动取消</li>
+              <li><strong>策略模式驱动资源分配引擎</strong>：抽象实体座位与虚拟算力点分配差异，解耦核心调度逻辑与资源规则</li>
+              <li><strong>网关统一鉴权与全链路无状态上下文</strong>：Spring Cloud Gateway + JWT + WebSocket 打通鉴权、上下文透传与预约结果实时推送</li>
             </ul>
 
             <h2>架构设计与技术栈</h2>
             <ul>
-              <li>微服务生态: Spring Cloud Alibaba（Nacos, Gateway, Sentinel 扩展位）, OpenFeign</li>
-              <li>核心框架与中间件: Spring Boot, Redis, RabbitMQ, Redisson, Lua, MyBatis-Plus, MySQL</li>
-              <li>业务支撑能力: Redis Stream 异步消息流, WebSocket 实时通知, Function Calling 业务承接</li>
+              <li>微服务生态: Spring Cloud, Spring Boot, Gateway, JWT</li>
+              <li>核心中间件: Redis, RabbitMQ, Redisson, Lua, MyBatis-Plus, MySQL</li>
+              <li>业务支撑能力: WebSocket 实时推送, 异构资源分配策略, 高并发预约链路</li>
             </ul>
 
             <h2>技术实现细节</h2>
-            <h3>1. 微服务解耦与无状态鉴权 (Gateway + Nacos)</h3>
-            <p>项目从单体架构收敛为 Maven 多模块微服务体系，核心拆分为公共模块、网关服务、用户服务与资源调度服务：</p>
+            <h3>1. 高并发防超卖与分布式锁控制</h3>
+            <p>针对秒杀级并发预约场景，项目摒弃传统数据库行锁，将并发冲突尽可能拦截在缓存层：</p>
             <ul>
-              <li>利用 Nacos 实现服务注册发现、动态配置与环境隔离</li>
-              <li>引入 Spring Cloud Gateway 作为统一流量入口，承接上层 AI 助手的结构化调度请求</li>
-              <li>在网关层前置 Token 解析、白名单放行与身份透传，推动下游调度服务走向无状态化</li>
+              <li>使用 Redis + Lua 实现库存预扣减的原子性操作</li>
+              <li>结合 Redisson 分布式锁处理极端情况下的并发安全问题，降低资源超卖风险</li>
+              <li>JMeter 500 瞬时并发压测下，系统单机抢座接口 QPS 峰值达到 1200+，核心逻辑 P99 延迟稳定在 50ms 内</li>
             </ul>
 
-            <h3>2. 稀缺资源强一致抢占 (Redis + Lua + Stream)</h3>
-            <p>针对 GPU 节点、实训室工位等资源在开放时段的脉冲式流量，核心目标是不超卖、不重复预约、主链路不被击穿：</p>
+            <h3>2. MQ 异步削峰与超时关单链路</h3>
+            <p>针对同步创建订单导致的数据库连接池瓶颈，项目引入消息队列进行流量削峰与超时回收：</p>
             <ul>
-              <li>通过 Redis + Lua 在缓存层原子完成资格校验、额度扣减与重复预约判断</li>
-              <li>借助 Redis Stream 将高并发请求异步削峰，降低主线程与数据库瞬时压力</li>
-              <li>在缓存层先建立并发防线，再将结果交给后续异步链路持久化处理</li>
+              <li>利用 RabbitMQ 将数据库瞬时写入 QPS 从约 1000 压低并平滑至约 100</li>
+              <li>构建预约超时监听组件，借助死信队列完成 15 分钟超时自动取消</li>
+              <li>在提升系统吞吐量的同时，避免轮询扫表带来的额外数据库压力</li>
             </ul>
 
-            <h3>3. Redisson 串行化落库与最终一致性兜底</h3>
-            <p>在异步消费与状态落库阶段，项目进一步通过分布式锁与数据库条件更新补强一致性保障：</p>
+            <h3>3. 策略模式驱动的资源分配引擎</h3>
+            <p>面对实体座位与虚拟算力点等异构资源的分配差异，项目在架构层面引入策略模式提升可扩展性：</p>
             <ul>
-              <li>按用户维度使用 Redisson 分布式锁，避免异步消费阶段重复落库</li>
-              <li>结合 MySQL 条件更新与状态校验，作为缓存层之外的最终一致性兜底</li>
-              <li>形成“缓存原子扣减 - 异步削峰 - 串行落库 - 持久层校验”的多层并发防线</li>
+              <li>通过工厂类动态路由至实体座位分配、云端算力调度等具体策略实现</li>
+              <li>将核心调度逻辑与业务规则解耦，便于新增资源类型和分配规则</li>
+              <li>满足校园实验资源调度系统的长期扩展需求</li>
             </ul>
 
-            <h3>4. 柔性事务闭环与超时自动回收 (RabbitMQ)</h3>
-            <p>针对预约成功后长期未签到、算力任务未激活等场景，项目通过消息机制避免资源空占：</p>
+            <h3>4. 网关统一鉴权与全链路无状态上下文</h3>
+            <p>为了支撑微服务链路下的统一接入、身份校验与实时反馈，项目在入口层和通知层做了整合：</p>
             <ul>
-              <li>预约成功后发送延迟消息，到期未确认则进入死信队列</li>
-              <li>消费死信消息后自动标记违约状态并恢复 ResourceQuota 可用额度</li>
-              <li>相比定时任务轮询扫表，显著降低数据库 I/O 压力并提升时效性</li>
-            </ul>
-
-            <h3>5. 百万级历史记录深分页优化</h3>
-            <p>针对管理端百万级历史调度日志的分页查询，项目围绕慢 SQL 场景做了针对性性能优化：</p>
-            <ul>
-              <li>使用 EXPLAIN 分析执行计划，识别回表与深分页扫描带来的性能损耗</li>
-              <li>结合覆盖索引与延迟关联优化查询路径</li>
-              <li>将深分页查询耗时从 3.2s 优化到 150ms 以内，提升后台管理体验</li>
+              <li>搭建 Spring Cloud Gateway 统一流量入口，通过全局过滤器集成 JWT 校验</li>
+              <li>依托网关 Header 透传、ThreadLocal 与拦截器实现用户身份的安全穿透和服务间无状态化隔离</li>
+              <li>结合 WebSocket 实现预约结果的客户端实时异步双向推送</li>
             </ul>
           </div>
 
           <div v-else-if="projectId === 'ai-oj-sandbox'">
             <h2>项目背景</h2>
-            <p>这是一个基于 Spring Boot 3、MyBatis-Plus、MySQL 与 Vue 3 构建的简易在线判题系统，覆盖题目管理、测试用例维护、Java/C++ 代码评测、AI 解题辅导、Monaco 在线编辑器与 Docker Compose 部署能力，定位于轻量级 OJ 训练与 AI 辅助编程实践场景。</p>
+            <p>针对传统 OJ 平台报错信息生硬、缺乏教学引导的痛点，开发并上线集成 LLM 辅助纠错的编程练习平台。系统覆盖代码编写、判题执行、异常分析、AI 启发式辅导与跨云部署能力，目标是让判题平台从“给结果”升级到“可讲解、可引导、可部署”的智能助教系统。</p>
 
             <h2>核心亮点</h2>
             <ul>
-              <li><strong>题目与测试用例管理</strong>：支持题目基础信息、详情页和测试用例的完整增删改查</li>
-              <li><strong>Java / C++ 简易判题引擎</strong>：基于 ProcessBuilder 完成编译运行、标准输出比对与错误结果返回</li>
-              <li><strong>LangChain4j + DashScope 流式辅导</strong>：基于 qwen-plus 和 SSE 输出错误代码分析与优化建议</li>
-              <li><strong>前后端一体化交付</strong>：Vue 3 + Monaco Editor 实现在线编辑体验，Docker Compose 支持快速部署上线</li>
+              <li><strong>LangChain4j 大模型辅导引擎</strong>：对接通义千问模型，围绕错误代码、异常堆栈与运行上下文生成结构化调试建议，平均生成耗时控制在 2 到 3 秒</li>
+              <li><strong>轻量级代码评测链路</strong>：基于 ProcessBuilder 实现 Java / C++ 编译运行与标准输出比对，支撑在线判题闭环</li>
+              <li><strong>长耗时链路异步化重构</strong>：通过自定义参数优化线程池并异步化沙箱执行与 AI 诊断任务，降低高并发提交下的线程耗尽风险</li>
+              <li><strong>低成本全栈云原生部署</strong>：前端基于 Vercel 边缘节点自动构建，后端在阿里云通过 Docker Compose 编排 Spring Boot 3 与 MySQL 环境上线</li>
             </ul>
 
             <h2>架构设计与技术栈</h2>
             <ul>
               <li>核心框架: Spring Boot 3.3.5, MyBatis-Plus 3.5.7, MySQL 8.0</li>
               <li>AI 能力接入: LangChain4j 0.36.2, DashScope / qwen-plus, SSE 流式输出</li>
-              <li>前端体系: Vue 3, Vite 5, TailwindCSS, Monaco Editor</li>
-              <li>部署方案: Docker, Docker Compose, 前后端一体化构建</li>
+              <li>前端体系: Vue 3, Vite 5, TailwindCSS, Monaco Editor, Vercel</li>
+              <li>部署方案: Docker, Docker Compose, 阿里云宿主机, CORS 与安全组配置</li>
             </ul>
 
             <h2>技术实现细节</h2>
-            <h3>1. 题目管理与数据初始化</h3>
-            <p>项目围绕在线判题系统的基础数据模型，提供题目与测试用例的管理能力：</p>
+            <h3>1. LangChain4j 大模型辅导引擎</h3>
+            <p>系统对接阿里云通义千问大模型，为传统 OJ 平台补足“错误解释”和“调试建议”能力：</p>
             <ul>
-              <li>支持题目列表、题目详情、测试用例维护与基础 CRUD 操作</li>
-              <li>通过 `schema.sql` 与 `init-data.sql` 完成表结构与初始化题目的快速导入</li>
-              <li>为判题与 AI 辅导模块提供稳定的题目上下文与标准答案依据</li>
+              <li>使用 LangChain4j 对接 DashScope 的 qwen-plus 模型</li>
+              <li>自动捕获编译失败、运行报错等异常上下文，通过结构化 Prompt 模板生成调试建议</li>
+              <li>平均生成耗时控制在 2 到 3 秒，实现从“判题机”到“智能助教”的能力升级</li>
             </ul>
 
-            <h3>2. 基于 ProcessBuilder 的简易判题引擎</h3>
-            <p>针对 Java / C++ 代码提交，项目通过原生子进程能力构建轻量级编译运行链路：</p>
+            <h3>2. 轻量级代码评测与安全执行链路</h3>
+            <p>围绕在线判题的基础能力，系统提供 Java / C++ 代码编译运行与标准输出校验机制：</p>
             <ul>
-              <li>使用 Java 原生 ProcessBuilder 动态完成编译、运行与异常捕获</li>
-              <li>围绕标准输入输出构建自动化比对逻辑，返回 AC / WA / 编译错误等结果</li>
-              <li>适合演示和轻量使用，同时保留向更严格沙箱机制扩展的空间</li>
+              <li>使用 Java 原生 ProcessBuilder 构建判题执行链路，覆盖编译、运行、异常捕获与输出比对</li>
+              <li>支持题目、测试用例与判题结果的完整数据流转</li>
+              <li>在轻量级演示场景下兼顾实现成本、可用性与后续沙箱强化空间</li>
             </ul>
 
-            <h3>3. LangChain4j + DashScope 的 AI 流式辅导</h3>
-            <p>针对用户提交的错误代码、题目内容与报错输出，项目提供流式 AI 辅导能力：</p>
+            <h3>3. 长耗时链路异步化重构</h3>
+            <p>针对代码沙箱安全运行与大模型推理双重叠加带来的长时阻塞，项目对关键链路进行了异步化重构：</p>
             <ul>
-              <li>基于 LangChain4j 对接 DashScope 的 `qwen-plus` 模型</li>
-              <li>使用 `SseEmitter` 将辅导结果实时推送给前端，形成打字机式反馈体验</li>
-              <li>围绕题目内容、错误代码和错误输出组织提示词，增强建议的针对性</li>
+              <li>基于自定义参数优化的核心线程池拆分判题任务与 AI 诊断任务</li>
+              <li>将同步阻塞链路改造成异步执行，降低高并发提交场景下工作线程被长时间占用的风险</li>
+              <li>配合 SSE 输出流式辅导结果，改善用户等待体验</li>
             </ul>
 
-            <h3>4. Monaco 编辑器与 Docker Compose 部署</h3>
-            <p>项目不仅完成了判题与 AI 辅导能力，还提供了完整的前后端交付方案：</p>
+            <h3>4. 低成本全栈云原生部署</h3>
+            <p>系统采用彻底的前后端分离与跨云部署方案，在保证成本可控的同时完成真实上线：</p>
             <ul>
-              <li>前端基于 Vue 3、TailwindCSS 与 Monaco Editor 搭建在线编码页面</li>
-              <li>通过 Dockerfile 和 Docker Compose 编排后端服务与 MySQL 8.0</li>
-              <li>支持本地开发、服务器部署与前后端一体化打包构建</li>
+              <li>前端基于 Vue3 依托 Vercel 实现边缘节点零配置 CI/CD 与全球加速</li>
+              <li>后端在阿里云宿主机上通过 Docker Compose 编排 Spring Boot 3 与 MySQL 服务</li>
+              <li>通过精细化配置全局 CORS 策略与云安全组规则，解决复杂跨域与服务隔离问题</li>
             </ul>
           </div>
 
@@ -238,22 +230,22 @@ const projectId = computed(() => route.params.id as string)
 
 const projectTitle = computed(() => {
   if (projectId.value === 'ai-assistant') {
-    return '校园 AI 问答与知识库管理平台'
+    return '校园智能知识库助手'
   } else if (projectId.value === 'order-system') {
-    return '校园智算中心预约与资源调度系统'
+    return '校园信息实验室资源调度与预约系统'
   } else if (projectId.value === 'ai-oj-sandbox') {
-    return 'Simple AI OJ 在线判题与 AI 辅导平台'
+    return 'AI-OJ 智能算法辅助评测系统'
   }
   return '项目详情'
 })
 
 const projectTags = computed(() => {
   if (projectId.value === 'ai-assistant') {
-    return ['Spring AI', 'Redis Vector Store', 'OSS', 'RAG', 'Function Calling', 'SSE']
+    return ['Spring AI', 'Redis Vector Store', 'OSS', 'Function Calling', 'SSE', 'RuoYi']
   } else if (projectId.value === 'order-system') {
-    return ['Spring Cloud Alibaba', 'Redis', 'RabbitMQ', 'Redisson', 'Lua', 'Gateway']
+    return ['Spring Cloud', 'Redis', 'RabbitMQ', 'Redisson', 'Lua', 'WebSocket']
   } else if (projectId.value === 'ai-oj-sandbox') {
-    return ['Spring Boot 3', 'MyBatis-Plus', 'LangChain4j', 'DashScope', 'Monaco Editor', 'Docker Compose']
+    return ['Spring Boot 3', 'MyBatis-Plus', 'LangChain4j', 'DashScope', 'Vue3 + Vite', 'Docker Compose']
   }
   return []
 })

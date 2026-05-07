@@ -6,30 +6,30 @@
           项目大厅
         </h1>
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-          <!-- 项目一：校园 AI 问答与知识库管理平台 -->
+          <!-- 项目一：校园智能知识库助手 -->
           <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-700 hover:border-blue-500/50 group">
             <div class="h-40 bg-gradient-to-r from-blue-600 to-purple-700 flex items-center justify-center relative overflow-hidden">
               <div class="text-white text-3xl font-bold z-10">
-                AI 知识库平台
+                校园智能知识库
               </div>
               <div class="absolute inset-0 bg-gradient-to-br from-blue-600/30 to-purple-700/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute top-0 right-0 w-20 h-20 bg-white/10 backdrop-blur-sm rounded-bl-full"></div>
             </div>
             <div class="p-8">
               <h2 class="text-2xl font-semibold mb-4 group-hover:text-blue-400 transition-colors duration-300">
-                校园 AI 问答与知识库管理平台
+                校园智能知识库助手
               </h2>
               <div class="text-gray-400 mb-6 space-y-4">
                 <p class="leading-relaxed">
-                  基于 RuoYi 后台二次开发，融合 Spring AI、通义千问、Redis Vector Store、OSS 与 SSE，构建面向校园问答、知识库运营与工具调用的一体化 AI 应用平台，覆盖文档上传、向量化入库、RAG 检索增强、多轮会话与后台权限管理。
+                  针对校园教务咨询场景开发的 AI 问答系统，旨在将复杂的教务规章制度、私有知识文档与传统查询 API 整合进大模型对话中，形成从知识检索到业务办理的闭环。
                 </p>
                 <div>
                   <h4 class="font-semibold text-gray-300 mb-2">核心工程亮点：</h4>
                   <ul class="list-disc pl-5 space-y-2">
-                    <li>将底层 AI 引擎从早期 Dify 直连迁移到 Spring AI，统一接入通义千问并便于组合 RAG、Tools 与 Memory</li>
-                    <li>打通 OSS 上传、Tika 文档解析、TokenTextSplitter 切片与 Redis Vector Store 入库的完整知识库闭环</li>
-                    <li>基于 SseEmitter + conversationId + Redis ChatMemory 实现多轮流式对话与上下文恢复</li>
-                    <li>通过 Redis ZSET/Lua 限流、高频问答库与权限后台治理，兼顾回答稳定性、成本控制与系统可维护性</li>
+                    <li>通过 Spring AI 的 Function Calling 统一调度成绩查询、校园卡余额等传统 CRUD 接口，实现业务 API 工具化接入</li>
+                    <li>构建基于阿里云 OSS 的 RAG 私有知识库入库流水线，落库约 500+ 条校园规章向量数据，Top-K=3 召回后专有问答准确率由 35% 提升至 88%+</li>
+                    <li>基于 SSE 封装异步流式响应链路，将大模型首字响应时间控制在 400ms 到 600ms</li>
+                    <li>自研基于 Redis 的分布式会话记忆与 Token 截断机制，单节点 2G 堆内存下稳定支撑 150 到 200 级并发流式长连接</li>
                   </ul>
                 </div>
               </div>
@@ -47,10 +47,10 @@
                   SSE
                 </span>
                 <span class="bg-sky-900/50 text-sky-400 text-xs font-medium px-3 py-1 rounded-full">
-                  RuoYi
+                  Function Calling
                 </span>
                 <span class="bg-indigo-900/50 text-indigo-400 text-xs font-medium px-3 py-1 rounded-full">
-                  Qwen
+                  RuoYi
                 </span>
               </div>
               <div class="flex flex-wrap gap-3">
@@ -74,36 +74,36 @@
             </div>
           </div>
 
-          <!-- 项目二：校园智算中心预约与资源调度系统 -->
+          <!-- 项目二：校园信息实验室资源调度与预约系统 -->
           <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-700 hover:border-green-500/50 group">
             <div class="h-40 bg-gradient-to-r from-green-600 to-teal-700 flex items-center justify-center relative overflow-hidden">
               <div class="text-white text-3xl font-bold z-10">
-                智算中心预约
+                实验室调度
               </div>
               <div class="absolute inset-0 bg-gradient-to-br from-green-600/30 to-teal-700/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute top-0 right-0 w-20 h-20 bg-white/10 backdrop-blur-sm rounded-bl-full"></div>
             </div>
             <div class="p-8">
               <h2 class="text-2xl font-semibold mb-4 group-hover:text-green-400 transition-colors duration-300">
-                校园智算中心预约与资源调度系统
+                校园信息实验室资源调度与预约系统
               </h2>
               <div class="text-gray-400 mb-6 space-y-4">
                 <p class="leading-relaxed">
-                  面向校园智算中心 GPU 节点、实训室工位与高价值实验资源时段，构建高可用资源调度中台，作为上层校园智能问答助手的底层业务执行引擎，承接 Function Calling 下发的预约、抢占、释放与状态查询指令。
+                  针对校园内计算中心与实验室资源高度紧缺、预约抢占常伴随瞬时高并发流量的业务痛点，开发分布式微服务调度中台，实现实体座位与虚拟算力等异构资源的高效分配与实时履约。
                 </p>
                 <div>
                   <h4 class="font-semibold text-gray-300 mb-2">核心工程亮点：</h4>
                   <ul class="list-disc pl-5 space-y-2">
-                    <li>基于 Nacos + Gateway 完成多模块微服务拆分与统一流量入口治理，实现下游服务无状态化演进</li>
-                    <li>通过 Redis + Lua + Redis Stream + Redisson 设计高并发抢占链路，保障稀缺资源不超额分配</li>
-                    <li>结合 RabbitMQ 延迟消息与死信队列实现超时违约自动回收，形成柔性事务闭环</li>
-                    <li>针对百万级历史调度日志采用 EXPLAIN、覆盖索引与延迟关联，深分页查询耗时由 3.2s 优化至 150ms 以内</li>
+                    <li>采用 Redis + Lua 预扣减与 Redisson 分布式锁组合治理秒杀级并发预约，JMeter 500 瞬时并发下单机抢座接口 QPS 峰值达到 1200+，核心逻辑 P99 延迟稳定在 50ms 内</li>
+                    <li>基于 RabbitMQ 进行异步削峰与超时关单处理，将数据库瞬时写入 QPS 从 1000 压平至约 100</li>
+                    <li>引入策略模式与工厂路由抽象实体座位和虚拟算力点分配差异，提升资源调度引擎扩展性</li>
+                    <li>通过 Spring Cloud Gateway + JWT + WebSocket 打通统一鉴权、无状态上下文透传与预约结果实时推送链路</li>
                   </ul>
                 </div>
               </div>
               <div class="flex flex-wrap gap-2 mb-6">
                 <span class="bg-cyan-900/50 text-cyan-400 text-xs font-medium px-3 py-1 rounded-full">
-                  Spring Cloud Alibaba
+                  Spring Cloud
                 </span>
                 <span class="bg-red-900/50 text-red-400 text-xs font-medium px-3 py-1 rounded-full">
                   Redis
@@ -118,7 +118,7 @@
                   Lua
                 </span>
                 <span class="bg-emerald-900/50 text-emerald-400 text-xs font-medium px-3 py-1 rounded-full">
-                  Gateway
+                  WebSocket
                 </span>
               </div>
               <div class="flex flex-wrap gap-3">
@@ -142,7 +142,7 @@
             </div>
           </div>
 
-          <!-- 项目三：Simple AI OJ 在线判题平台 -->
+          <!-- 项目三：AI-OJ 智能算法辅助评测系统 -->
           <div class="bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-700 hover:border-cyan-500/50 group">
             <div class="h-40 bg-gradient-to-r from-cyan-600 via-sky-600 to-indigo-700 flex items-center justify-center relative overflow-hidden">
               <div class="absolute top-4 left-4 z-20">
@@ -151,26 +151,26 @@
                 </span>
               </div>
               <div class="text-white text-3xl font-bold z-10 text-center px-4">
-                Simple AI OJ
+                AI-OJ 评测系统
               </div>
               <div class="absolute inset-0 bg-gradient-to-br from-cyan-600/30 to-indigo-700/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="absolute top-0 right-0 w-20 h-20 bg-white/10 backdrop-blur-sm rounded-bl-full"></div>
             </div>
             <div class="p-8">
               <h2 class="text-2xl font-semibold mb-4 group-hover:text-cyan-400 transition-colors duration-300">
-                Simple AI OJ 在线判题与 AI 辅导平台
+                AI-OJ 智能算法辅助评测系统
               </h2>
               <div class="text-gray-400 mb-6 space-y-4">
                 <p class="leading-relaxed">
-                  一个基于 Spring Boot 3、MyBatis-Plus、MySQL 与 Vue 3 构建的简易在线判题系统，覆盖题目管理、Java/C++ 代码评测、AI 辅导、Monaco 在线编辑器与 Docker Compose 部署能力，面向算法训练与轻量级 OJ 演示场景。
+                  针对传统 OJ 平台报错信息生硬、缺乏教学引导的痛点，开发并上线集成 LLM 辅助纠错的编程练习平台，实现从代码编写、沙箱安全执行到 AI 启发式辅导的全链路闭环。
                 </p>
                 <div>
                   <h4 class="font-semibold text-gray-300 mb-2">核心技术亮点：</h4>
                   <ul class="list-disc pl-5 space-y-2">
-                    <li>支持题目与测试用例的增删改查，形成完整的题目管理与判题数据链路</li>
-                    <li>基于 Java 原生 ProcessBuilder 实现 Java / C++ 简易编译运行评测与标准输出自动比对</li>
-                    <li>集成 LangChain4j + DashScope（qwen-plus）并通过 SSE 输出流式 AI 解题辅导结果</li>
-                    <li>前端基于 Vue 3 + TailwindCSS + Monaco Editor，后端支持 Docker Compose 一键部署</li>
+                    <li>集成 LangChain4j 对接阿里云通义千问大模型，围绕错误代码、异常堆栈与运行上下文生成结构化调试建议，平均响应耗时控制在 2 到 3 秒</li>
+                    <li>基于 ProcessBuilder 构建 Java / C++ 代码编译运行与标准输出比对链路，支撑轻量级在线判题</li>
+                    <li>针对沙箱执行与大模型推理的长耗时链路，采用自定义线程池进行异步化重构，降低高并发提交下的工作线程耗尽风险</li>
+                    <li>采用 Vue3 + Vite 前端、Vercel 边缘发布与阿里云 Docker Compose 后端部署，完成跨云前后端分离上线</li>
                   </ul>
                 </div>
                 <p class="text-sm text-cyan-300 break-all">
@@ -191,7 +191,7 @@
                   DashScope
                 </span>
                 <span class="bg-cyan-900/50 text-cyan-400 text-xs font-medium px-3 py-1 rounded-full">
-                  Monaco Editor
+                  Vue3 + Vite
                 </span>
                 <span class="bg-slate-800/70 text-slate-300 text-xs font-medium px-3 py-1 rounded-full">
                   Docker Compose
