@@ -48,7 +48,7 @@
               <div class="mt-6 flex flex-wrap gap-2">
                 <span class="bg-gray-700/80 text-gray-200 text-xs font-medium px-3 py-1.5 rounded-full">高并发后端</span>
                 <span class="bg-gray-700/80 text-gray-200 text-xs font-medium px-3 py-1.5 rounded-full">微服务架构</span>
-                <span class="bg-gray-700/80 text-gray-200 text-xs font-medium px-3 py-1.5 rounded-full">RAG / Agent</span>
+                <span class="bg-gray-700/80  text-gray-200 text-xs font-medium px-3 py-1.5 rounded-full">RAG / Agent</span>
                 <span class="bg-gray-700/80  text-gray-200 text-xs font-medium px-3 py-1.5 rounded-full">Docker 部署</span>
               </div>
               <div class="mt-6 flex items-center gap-2">
